@@ -1,0 +1,17 @@
+https://github.com/vsandrade/ProEventos.git
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+npm install -g @angular/cli@13
+
+[list all versions of .NET]
+dotnet --list-sdks
+
+[set .net sdk version]
+project/src>: dotnet new globaljson --sdk-version 5.0.408 --force
+
+[create new api]
+project/src>: dotnet new webapi -n ProEvent.API
+
+[run api]
+project/src/ProEvents.API>: dotnet watch run
