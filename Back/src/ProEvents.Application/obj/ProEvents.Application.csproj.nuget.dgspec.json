@@ -35,8 +35,8 @@
               "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Domain\\ProEvents.Domain.csproj": {
                 "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Domain\\ProEvents.Domain.csproj"
               },
-              "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj": {
-                "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj"
+              "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj": {
+                "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj"
               }
             }
           }
@@ -127,14 +127,14 @@
         }
       }
     },
-    "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj": {
+    "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj",
-        "projectName": "ProEvents.Persistence",
-        "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj",
+        "projectName": "ProEvents.Repository",
+        "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj",
         "packagesPath": "C:\\Users\\csrobalo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\obj\\",
+        "outputPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

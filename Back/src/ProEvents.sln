@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvents.Domain", "ProEven
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvents.API", "ProEvents.API\ProEvents.API.csproj", "{3522618A-01A5-4D9B-9038-905A40DCC90B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvents.Persistence", "ProEvents.Persistence\ProEvents.Persistence.csproj", "{F4DBDCA6-88DE-4A39-A1E9-CD82F12EA9A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvents.Repository", "ProEvents.Repository\ProEvents.Repository.csproj", "{AA042777-4964-4F2D-88DB-42F35DD4B115}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,5 +72,17 @@ Global
 		{F4DBDCA6-88DE-4A39-A1E9-CD82F12EA9A7}.Release|x64.Build.0 = Release|Any CPU
 		{F4DBDCA6-88DE-4A39-A1E9-CD82F12EA9A7}.Release|x86.ActiveCfg = Release|Any CPU
 		{F4DBDCA6-88DE-4A39-A1E9-CD82F12EA9A7}.Release|x86.Build.0 = Release|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Debug|x64.Build.0 = Debug|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Debug|x86.Build.0 = Debug|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Release|x64.ActiveCfg = Release|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Release|x64.Build.0 = Release|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA042777-4964-4F2D-88DB-42F35DD4B115}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

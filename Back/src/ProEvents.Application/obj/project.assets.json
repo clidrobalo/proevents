@@ -183,7 +183,7 @@
           "bin/placeholder/ProEvents.Domain.dll": {}
         }
       },
-      "ProEvents.Persistence/1.0.0": {
+      "ProEvents.Repository/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -192,10 +192,10 @@
           "ProEvents.Domain": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/ProEvents.Persistence.dll": {}
+          "bin/placeholder/ProEvents.Repository.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ProEvents.Persistence.dll": {}
+          "bin/placeholder/ProEvents.Repository.dll": {}
         }
       }
     }
@@ -586,16 +586,16 @@
       "path": "../ProEvents.Domain/ProEvents.Domain.csproj",
       "msbuildProject": "../ProEvents.Domain/ProEvents.Domain.csproj"
     },
-    "ProEvents.Persistence/1.0.0": {
+    "ProEvents.Repository/1.0.0": {
       "type": "project",
-      "path": "../ProEvents.Persistence/ProEvents.Persistence.csproj",
-      "msbuildProject": "../ProEvents.Persistence/ProEvents.Persistence.csproj"
+      "path": "../ProEvents.Repository/ProEvents.Repository.csproj",
+      "msbuildProject": "../ProEvents.Repository/ProEvents.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "ProEvents.Domain >= 1.0.0",
-      "ProEvents.Persistence >= 1.0.0"
+      "ProEvents.Repository >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -633,8 +633,8 @@
             "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Domain\\ProEvents.Domain.csproj": {
               "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Domain\\ProEvents.Domain.csproj"
             },
-            "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj": {
-              "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Persistence\\ProEvents.Persistence.csproj"
+            "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj": {
+              "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Repository\\ProEvents.Repository.csproj"
             }
           }
         }
