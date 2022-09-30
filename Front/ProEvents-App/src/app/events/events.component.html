@@ -1,0 +1,56 @@
+<h2>Events</h2>
+<hr>
+
+<div action="" class="form-inline">
+  <label class="mr-2">Filtro:</label>
+  <div class="form-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="search" [(ngModel)]="filterList">
+  </div>
+</div>
+
+<!-- <h4>Filtro: {{filterList}}</h4> -->
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="showImages()">
+          {{isToShowImages ? 'Hide Photo' : 'Show Photo'}}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Theme</th>
+      <th>Place</th>
+      <th>Date</th>
+      <th>Persons</th>
+      <th>Lote</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of filteredEvents">
+      <td>
+        <img [collapse]="!isToShowImages" [isAnimated]="true" src="assets/foto3.jpg" [style.width.px]="widthImg" [style.margin.px]="marginImg">
+      </td>
+      <td>{{ event.eventId }}</td>
+      <td>{{ event.theme }}</td>
+      <td>{{event.place}}</td>
+      <td>{{event.eventDate}}</td>
+      <td>{{event.numberOfPerson}}</td>
+      <td>{{event.lote}}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2">Edit</button>
+        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!events || events.lenght == 0">
+    <tr>
+      <td colspan="8" class="text-center bg-light">
+        Nenhum evento encontrado
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<hr>
+{{events | json}}

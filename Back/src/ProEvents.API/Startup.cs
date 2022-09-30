@@ -33,6 +33,7 @@ namespace ProEvents.API
             );
 
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEvents.API", Version = "v1" });
@@ -54,6 +55,12 @@ namespace ProEvents.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(access =>
+                access.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+            );
 
             app.UseEndpoints(endpoints =>
             {

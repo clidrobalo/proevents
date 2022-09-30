@@ -24,3 +24,26 @@ NewProEvents\Back\src\ProEvents.API> dotnet ef migrations add Initial -o Data/Mi
 
 [Update database based in the corresponding migrations]
 NewProEvents\Back\src\ProEvents.API> dotnet ef database update
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+[install angular]
+npm install -g @angular/cli@13
+
+[uninstall nodejs]
+choco uninstall nodejs.install
+
+[install specific version of node]
+choco install nodejs.install --version=16.10.0
+
+[change powershell policy]
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+[install fontawasome]
+npm install --save @fortawesome/fontawesome-free
+
+[install ngx-bootstrap]
+ng add ngx-bootstrap
+
+[install bootstrap]
+npm install bootstrap@4
