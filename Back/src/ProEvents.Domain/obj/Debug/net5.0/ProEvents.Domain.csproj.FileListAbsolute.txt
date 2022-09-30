@@ -1,0 +1,12 @@
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\bin\Debug\net5.0\ProEvents.Domain.deps.json
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\bin\Debug\net5.0\ProEvents.Domain.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\bin\Debug\net5.0\ref\ProEvents.Domain.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\bin\Debug\net5.0\ProEvents.Domain.pdb
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.csproj.AssemblyReference.cache
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.AssemblyInfoInputs.cache
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.AssemblyInfo.cs
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.csproj.CoreCompileInputs.cache
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ref\ProEvents.Domain.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.pdb

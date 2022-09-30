@@ -5,7 +5,7 @@
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/Humanizer.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {}
@@ -475,6 +475,45 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "ProEvents.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "ProEvents.Domain": "1.0.0",
+          "ProEvents.Persistence": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ProEvents.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProEvents.Application.dll": {}
+        }
+      },
+      "ProEvents.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/ProEvents.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProEvents.Domain.dll": {}
+        }
+      },
+      "ProEvents.Persistence/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.17",
+          "Microsoft.EntityFrameworkCore.Tools": "5.0.17",
+          "ProEvents.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ProEvents.Persistence.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProEvents.Persistence.dll": {}
         }
       }
     }
@@ -1281,6 +1320,21 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ProEvents.Application/1.0.0": {
+      "type": "project",
+      "path": "../ProEvents.Application/ProEvents.Application.csproj",
+      "msbuildProject": "../ProEvents.Application/ProEvents.Application.csproj"
+    },
+    "ProEvents.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ProEvents.Domain/ProEvents.Domain.csproj",
+      "msbuildProject": "../ProEvents.Domain/ProEvents.Domain.csproj"
+    },
+    "ProEvents.Persistence/1.0.0": {
+      "type": "project",
+      "path": "../ProEvents.Persistence/ProEvents.Persistence.csproj",
+      "msbuildProject": "../ProEvents.Persistence/ProEvents.Persistence.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1289,6 +1343,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.17",
+      "ProEvents.Application >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -1323,7 +1378,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Application\\ProEvents.Application.csproj": {
+              "projectPath": "C:\\Users\\csrobalo\\Documents\\academy\\NewProEvents\\Back\\src\\ProEvents.Application\\ProEvents.Application.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

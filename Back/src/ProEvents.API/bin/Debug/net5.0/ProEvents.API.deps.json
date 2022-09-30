@@ -37,6 +37,7 @@
           "Microsoft.EntityFrameworkCore.Design": "5.0.17",
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.17",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.17",
+          "ProEvents.Application": "1.0.0",
           "Swashbuckle.AspNetCore": "5.6.3",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
@@ -333,6 +334,9 @@
             "assemblyVersion": "2.8.0.0",
             "fileVersion": "2.8.26.1919"
           }
+        },
+        "compile": {
+          "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
       "Microsoft.CSharp/4.7.0": {},
@@ -702,6 +706,39 @@
         }
       },
       "System.Memory/4.5.3": {},
+      "ProEvents.Application/1.0.0": {
+        "dependencies": {
+          "ProEvents.Domain": "1.0.0",
+          "ProEvents.Persistence": "1.0.0"
+        },
+        "runtime": {
+          "ProEvents.Application.dll": {}
+        },
+        "compile": {
+          "ProEvents.Application.dll": {}
+        }
+      },
+      "ProEvents.Domain/1.0.0": {
+        "runtime": {
+          "ProEvents.Domain.dll": {}
+        },
+        "compile": {
+          "ProEvents.Domain.dll": {}
+        }
+      },
+      "ProEvents.Persistence/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.17",
+          "Microsoft.EntityFrameworkCore.Tools": "5.0.17",
+          "ProEvents.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ProEvents.Persistence.dll": {}
+        },
+        "compile": {
+          "ProEvents.Persistence.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Antiforgery.dll": {}
@@ -2647,6 +2684,21 @@
       "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
       "path": "system.memory/4.5.3",
       "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "ProEvents.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProEvents.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProEvents.Persistence/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
       "type": "referenceassembly",

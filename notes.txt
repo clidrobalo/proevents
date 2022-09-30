@@ -20,10 +20,36 @@ project/src/ProEvents.API>: dotnet watch run
 dotnet tool install --global dotnet-ef
 
 [Migrate Data]
-NewProEvents\Back\src\ProEvents.API> dotnet ef migrations add Initial -o Data/Migrations
+NewProEvents\Back\src\ProEvents.API> 
+(OLD): dotnet ef migrations add Initial -o Data/Migrations
+(NEw): dotnet ef migrations add Initial -p ProEvents.Persistence -s ProEvents.API
 
 [Update database based in the corresponding migrations]
-NewProEvents\Back\src\ProEvents.API> dotnet ef database update
+NewProEvents\Back\src\ProEvents.API>
+(OLD): dotnet ef database update
+(NEW): dotnet ef database update -s ProEvents.API
+
+[create new solution]
+dotnet new sln -n ProEvents
+
+[create new Class Library]
+dotnet new classlib -n ProEvents.Persistence
+dotnet new classlib -n ProEvents.Domain
+dotnet new classlib -n ProEvents.Application
+
+[Add projects to solution]
+dotnet sln ProEvents.sln add ProEvents.Application
+dotnet sln ProEvents.sln add ProEvents.Domain
+dotnet sln ProEvents.sln add ProEvents.API
+dotnet sln ProEvents.sln add ProEvents.Persistence
+
+[Add reference to project]
+dotnet add ProEvents.API/ProEvents.API.csproj reference ProEvents.Application
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
