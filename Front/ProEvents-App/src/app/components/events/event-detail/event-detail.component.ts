@@ -42,4 +42,8 @@ export class EventDetailComponent implements OnInit {
       eventSpeakers: ['', Validators.required],
     });
   }
+
+  public resetForm(): void {
+    this.eventDetailForm.reset();
+  }
 }
