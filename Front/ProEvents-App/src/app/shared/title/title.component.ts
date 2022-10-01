@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TitleComponent implements OnInit {
   @Input() title?: string
+  @Input() subTitle?: string
+  @Input() iconClass?: string
+  @Input() showBtnList: boolean = false;
 
   constructor() { }
 

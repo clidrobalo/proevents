@@ -1,3 +1,12 @@
-<h3>
-  {{ title }}
-</h3>
+<div class="d-flex p-3 my-3 text-white bg-secondary shadow-sm">
+  <div class="d-flex align-items-center mr-auto">
+    <i class="{{ iconClass }} mr-3"></i>
+    <div class="lh-1">
+      <h2 class="mb-0">{{ title }}</h2>
+      <small>{{ subTitle }}</small>
+    </div>
+  </div>
+  <div class="p-3" *ngIf="showBtnList">
+    <button class="btn btn-outline-light">List {{ title }}</button>
+  </div>
+</div>
