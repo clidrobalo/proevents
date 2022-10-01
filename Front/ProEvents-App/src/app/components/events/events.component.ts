@@ -4,6 +4,7 @@ import { Event } from '../../models/Event';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -26,7 +27,8 @@ export class EventsComponent implements OnInit {
     private _eventService: EventService,
     private modalService: BsModalService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private route: Router
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +71,13 @@ export class EventsComponent implements OnInit {
 
   public showImages(): void {
     this.isToShowImages = !this.isToShowImages;
+  }
+
+  /**
+   * Show Button 'List Events' just when url not contain 'events/list'
+   */
+  public isShowListBtn(): boolean {
+    return !this.route.url.toLowerCase().includes('events/list');
   }
 
   // MODAL - START
