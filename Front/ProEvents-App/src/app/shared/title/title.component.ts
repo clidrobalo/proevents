@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-title',
@@ -11,9 +12,13 @@ export class TitleComponent implements OnInit {
   @Input() iconClass?: string
   @Input() showBtnList: boolean = false;
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit() {
+  }
+
+  list(): void {
+    this.route.navigate([`/${this.title?.toLowerCase()}/list`]);
   }
 
 }
