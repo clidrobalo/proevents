@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventsComponent } from './events/events.component';
 import { SpeakersComponent } from './speakers/speakers.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { FormsModule } from '@angular/forms';
+
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 
 @NgModule({
@@ -18,15 +25,24 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     EventsComponent,
     SpeakersComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CollapseModule.forRoot(),
-    FormsModule
+    CollapseModule,
+    FormsModule,
+    TooltipModule,
+    BsDropdownModule,
+    ModalModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressBar: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

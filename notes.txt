@@ -73,3 +73,6 @@ ng add ngx-bootstrap
 
 [install bootstrap]
 npm install bootstrap@4
+
+[install ngx-toaster]
+npm install ngx-toastr@13.2.1 --save

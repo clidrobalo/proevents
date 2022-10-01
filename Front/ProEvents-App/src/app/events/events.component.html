@@ -31,7 +31,8 @@
   <tbody>
     <tr *ngFor="let event of filteredEvents">
       <td>
-        <img [collapse]="!isToShowImages" [isAnimated]="true" src="assets/foto3.jpg" [style.width.px]="widthImg" [style.margin.px]="marginImg">
+        <img [collapse]="!isToShowImages" [isAnimated]="true" src="assets/foto3.jpg" [style.width.px]="widthImg"
+          [style.margin.px]="marginImg">
       </td>
       <td>{{ event.id }}</td>
       <td>{{ event.theme }}</td>
@@ -40,10 +41,11 @@
       <td>{{ event.numberOfPerson }}</td>
       <td>{{ event.lotes.length > 0 ? event.lotes[0].name : event.lotes }}</td>
       <td>
-        <button type="button" class="btn btn-primary btn-sm mr-2">
+        <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
           <i class="fa fa-edit"></i>
         </button>
-        <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+        <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash" tooltip="Delete"
+            (click)="openModal(template)"></i></button>
       </td>
     </tr>
   </tbody>
@@ -56,4 +58,13 @@
   </tfoot>
 </table>
 <hr>
+
 {{events | json}}
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm delete?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">Confirm</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete()">Cancel</button>
+  </div>
+</ng-template>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/Event';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-events',
@@ -15,8 +17,13 @@ export class EventsComponent implements OnInit {
   public isToShowImages: boolean = true;
 
   private _filter: string = '';
+  private _modalRef?: BsModalRef;
 
-  constructor(private _eventService: EventService) { }
+  constructor(
+    private _eventService: EventService,
+    private modalService: BsModalService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getEvents();
@@ -51,4 +58,18 @@ export class EventsComponent implements OnInit {
     this.isToShowImages = !this.isToShowImages;
   }
 
+  // MODAL - START
+  public openModal(template: TemplateRef<any>): void {
+    this._modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirmDelete(): void {
+    this._modalRef?.hide();
+    this.toastr.success('Event deleted successful.', 'Success');
+  }
+
+  declineDelete(): void {
+    this._modalRef?.hide();
+  }
+  // MODAL - END
 }
