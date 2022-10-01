@@ -76,3 +76,6 @@ npm install bootstrap@4
 
 [install ngx-toaster]
 npm install ngx-toastr@13.2.1 --save
+
+[install ngc-spinner]
+npm install ngx-spinner@13.1.1 --save

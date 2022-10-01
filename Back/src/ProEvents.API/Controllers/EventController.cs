@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace ProEvents.API.Controllers
         {
             try
             {
+                Thread.Sleep(800); // delay for spinner in frontend
                 var Events = await _eventService.GetAllEventsAsync();
 
                 if (Events == null)

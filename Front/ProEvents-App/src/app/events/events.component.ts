@@ -3,6 +3,7 @@ import { EventService } from '../services/event.service';
 import { Event } from '../models/Event';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-events',
@@ -22,10 +23,17 @@ export class EventsComponent implements OnInit {
   constructor(
     private _eventService: EventService,
     private modalService: BsModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
+    /** spinner starts on init */
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+    }, 1000);
+
     this.getEvents();
   }
 
@@ -48,8 +56,11 @@ export class EventsComponent implements OnInit {
     this._eventService.getEvents().subscribe(
       {
         next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
-        error: (error) => { console.log(error) },
-        complete: () => { }
+        error: (error) => {
+          this.spinner.hide();
+          this.toastr.success('Error in loading events.', 'Failed');
+        },
+        complete: () => { this.spinner.hide(); }
       }
     )
   }
