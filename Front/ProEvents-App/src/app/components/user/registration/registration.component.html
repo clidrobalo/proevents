@@ -2,42 +2,93 @@
 
   <div class="col-md-6 d-none d-md-block" style="height: 450px;">
     <div class="text-center col-md-12 my-auto side-heder">
-      <img src="@assets/img/registration.png" class="my-4" alt="" width="600px">
+      <img src="assets/img/registration.png" class="my-4" alt="" width="600px">
     </div>
   </div>
 
   <div class="col-md-6">
     <h2 class="text-center mt-5">Registration</h2>
 
-    <form class="p-1 mt-5">
+    <form class="p-1 mt-5" [formGroup]="registationForm">
       <div class="pb-2 d-block d-md-none">
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label>First Name</label>
-          <input type="text" class="form-control" placeholder="Fill your first name" />
+          <input type="text" class="form-control" formControlName="fistName"
+            [ngClass]="{'is-invalid': form.fistName.errors && form.fistName.touched }"
+            placeholder="Fill your first name" />
+          <div *ngIf="form.fistName.hasError('required')" class="invalid-feedback">
+            Fist Name is mandatory.
+          </div>
+          <div *ngIf="form.fistName.hasError('minlength')" class="invalid-feedback">
+            Fist Name less than
+            4 caracters.
+          </div>
         </div>
         <div class="form-group col-sm-6">
           <label>Last Name</label>
-          <input type="text" class="form-control" placeholder="Fill your last name" />
+          <input type="text" class="form-control" formControlName="lastName"
+            [ngClass]="{'is-invalid': form.lastName.errors && form.lastName.touched }"
+            placeholder="Fill your last name" />
+          <div *ngIf="form.lastName.hasError('required')" class="invalid-feedback">
+            Last Name is mandatory.
+          </div>
+          <div *ngIf="form.lastName.hasError('minlength')" class="invalid-feedback">
+            Last Name less than
+            4 caracters.
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label for="">Email:</label>
-        <input class="form-control" type="text" placeholder="fill your email" />
+        <input class="form-control" type="text" formControlName="email"
+          [ngClass]="{'is-invalid': form.email.errors && form.email.touched }" placeholder="fill your email" />
+        <div *ngIf="form.email.hasError('required')" class="invalid-feedback">
+          Email is mandatory.
+        </div>
+        <div class="invalid-feedback">
+
+        </div>
       </div>
       <div class="form-group">
         <label for="">User:</label>
-        <input class="form-control" type="text" placeholder="Fill your user name" />
+        <input class="form-control" type="text" formControlName="username"
+          [ngClass]="{'is-invalid': form.username.errors && form.username.touched }"
+          placeholder="Fill your user name" />
+        <div *ngIf="form.username.hasError('required')" class="invalid-feedback">
+          User Name is mandatory.
+        </div>
+        <div *ngIf="form.username.hasError('minlength')" class="invalid-feedback">
+          User Name less than
+          4 caracters.
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label for="">Password:</label>
-          <input class="form-control" type="password" placeholder="Fill your password" />
+          <input class="form-control" type="password" formControlName="password"
+            [ngClass]="{'is-invalid': form.password.errors && form.password.touched }"
+            placeholder="Fill your password" />
+          <div *ngIf="form.password.hasError('required')" class="invalid-feedback">
+            Password is mandatory.
+          </div>
+          <div *ngIf="form.password.hasError('minlength')" class="invalid-feedback">
+            Password less than
+            4 caracters.
+          </div>
         </div>
         <div class="form-group col-sm-6">
           <label for="">Confirm Password:</label>
-          <input class="form-control" type="password" placeholder="Confirm your password" />
+          <input class="form-control" type="password" formControlName="passwordConfirmed"
+            [ngClass]="{'is-invalid': form.passwordConfirmed.errors && form.passwordConfirmed.touched }"
+            placeholder="Confirm your password" />
+          <div *ngIf="form.passwordConfirmed.hasError('required')" class="invalid-feedback">
+            Confirmation Password is mandatory.
+          </div>
+          <div class="invalid-feedback">
+
+          </div>
         </div>
       </div>
       <div class="form-row p-1 mb-3">
