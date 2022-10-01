@@ -86,8 +86,8 @@
           <div *ngIf="form.passwordConfirmed.hasError('required')" class="invalid-feedback">
             Confirmation Password is mandatory.
           </div>
-          <div class="invalid-feedback">
-
+          <div *ngIf="form.passwordConfirmed.hasError('mustMatch')" class="invalid-feedback">
+            Password not match.
           </div>
         </div>
       </div>
