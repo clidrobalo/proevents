@@ -10,6 +10,7 @@ export interface Event {
   numberOfPerson: number;
   imageUrl: string;
   phone: string;
+  email: string;
   lotes: Lote[];
   socialMedias: SocialMedia[];
   eventSpeakers: EventSpeaker[];
