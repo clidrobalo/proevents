@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../services/event.service';
+import { Event } from '../models/Event';
 
 @Component({
   selector: 'app-events',
@@ -7,21 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  public events: any = [];
-  public filteredEvents: any = [];
-  widthImg = 150;
-  marginImg = 2;
-  isToShowImages: boolean = true;
+  public events: Event[] = [];
+  public filteredEvents: Event[] = [];
+  public widthImg: number = 150;
+  public marginImg = 2;
+  public isToShowImages: boolean = true;
 
   private _filter: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private _eventService: EventService) { }
 
   ngOnInit(): void {
-    this.getEvent();
+    this.getEvents();
   }
 
-  public get filterList() {
+  public get filterList(): string {
     return this._filter;
   }
 
@@ -30,20 +31,23 @@ export class EventsComponent implements OnInit {
     this.filteredEvents = this.filterList ? this.filterEvents(this._filter) : this.events;
   }
 
-  private filterEvents(value: string): any {
+  private filterEvents(value: string): Event[] {
     value = value.toLowerCase();
-    return this.events.filter((event: any) => event.theme.toLowerCase().indexOf(value) !== -1
-    || event.place.toLowerCase().indexOf(value) !== -1);
+    return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
+      || event.place.toLowerCase().indexOf(value) !== -1);
   }
 
-  private getEvent(): void {
-    this.http.get('https://localhost:5001/api/event').subscribe(
-      response => {this.events = response, this.filteredEvents = response},
-      error => console.log(error)
+  private getEvents(): void {
+    this._eventService.getEvents().subscribe(
+      {
+        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
+        error: (error) => { console.log(error) },
+        complete: () => { }
+      }
     )
   }
 
-  public showImages(): void{
+  public showImages(): void {
     this.isToShowImages = !this.isToShowImages;
   }
 
