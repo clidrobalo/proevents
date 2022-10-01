@@ -1,7 +1,7 @@
 <app-title [title]="title" [subTitle]="'User Profile'" [iconClass]="'fa fa-duotone fa-user'"></app-title>
 
 <div class="card shadow-sm">
-  <form>
+  <form [formGroup]="profileForm">
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
         <div class="card mb-3">
@@ -45,8 +45,9 @@
           </div>
           <div class="form-group col">
             <label>Título</label>
-            <select class="form-control">
-              <option value=""></option>
+            <select class="form-control" formControlName="title"
+              [ngClass]="{'is-invalid': form.title.errors && form.title.touched }">
+              <option value="" disabled>Select one Title</option>
               <option value="0">Não Quero</option>
               <option value="Senhorita">Tecnólogo(a)</option>
               <option value="Senhorita">Bacharel</option>
@@ -59,35 +60,62 @@
           </div>
           <div class="form-group col-sm-5">
             <label>Primeiro Nome</label>
-            <input type="text" class="form-control" />
-
+            <input type="text" class="form-control" formControlName="fistName"
+              [ngClass]="{'is-invalid': form.fistName.errors && form.fistName.touched }"
+              placeholder="Fill your first name" />
+            <div *ngIf="form.fistName.hasError('required')" class="invalid-feedback">
+              Fist Name is mandatory.
+            </div>
+            <div *ngIf="form.fistName.hasError('minlength')" class="invalid-feedback">
+              Fist Name less than
+              4 caracters.
+            </div>
           </div>
           <div class="form-group col-sm-5">
             <label>Último nome</label>
-            <input type="text" class="form-control" />
-
+            <input type="text" class="form-control" formControlName="lastName"
+              [ngClass]="{'is-invalid': form.lastName.errors && form.lastName.touched }"
+              placeholder="Fill your last name" />
+            <div *ngIf="form.lastName.hasError('required')" class="invalid-feedback">
+              Last Name is mandatory.
+            </div>
+            <div *ngIf="form.lastName.hasError('minlength')" class="invalid-feedback">
+              Last Name less than
+              4 caracters.
+            </div>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-sm-5">
             <label>E-mail</label>
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" formControlName="email"
+              [ngClass]="{'is-invalid': form.email.errors && form.email.touched }" placeholder="Fill your email" />
+            <div *ngIf="form.email.hasError('required')" class="invalid-feedback">
+              Email is mandatory.
+            </div>
           </div>
           <div class="form-group col-sm-4">
             <label>Telefone</label>
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" formControlName="phone"
+              [ngClass]="{'is-invalid': form.phone.errors && form.phone.touched }" placeholder="Fill your phone" />
+            <div *ngIf="form.phone.hasError('required')" class="invalid-feedback">
+              Phone is mandatory.
+            </div>
           </div>
           <div class="form-group col-sm">
             <label>Função</label>
-            <select class="form-control">
-              <option value=""></option>
+            <select class="form-control" formControlName="role" [ngClass]="{'is-invalid': form.role.errors &&
+              form.role.touched }">
+              <option value="" disabled>Select one Role</option>
               <option value="Participante">Participante</option>
               <option value="Palestrante">Palestrante</option>
             </select>
           </div>
           <form-group class="col-12">
             <label>Descrição</label>
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" formControlName="description"
+              [ngClass]="{'is-invalid': form.description.errors && form.description.touched }"
+              placeholder="Fill some description" />
           </form-group>
         </div>
         <div>
@@ -97,11 +125,28 @@
         <div class="form-row">
           <div class="form-group col-sm">
             <label>Senha</label>
-            <input type="password" class="form-control" />
+            <input type="password" class="form-control" formControlName="password"
+              [ngClass]="{'is-invalid': form.password.errors && form.password.touched }"
+              placeholder="Fill your password" />
+            <div *ngIf="form.password.hasError('required')" class="invalid-feedback">
+              Password is mandatory.
+            </div>
+            <div *ngIf="form.password.hasError('minlength')" class="invalid-feedback">
+              Password less than
+              4 caracters.
+            </div>
           </div>
           <div class="form-group col-sm">
             <label>Confirmar Senha</label>
-            <input type="password" class="form-control" />
+            <input type="password" class="form-control" formControlName="passwordConfirmed"
+              [ngClass]="{'is-invalid': form.passwordConfirmed.errors && form.passwordConfirmed.touched }"
+              placeholder="Confirm your password" />
+            <div *ngIf="form.passwordConfirmed.hasError('required')" class="invalid-feedback">
+              Confirmation Password is mandatory.
+            </div>
+            <div *ngIf="form.passwordConfirmed.hasError('mustMatch')" class="invalid-feedback">
+              Password not match.
+            </div>
           </div>
         </div>
       </div>
@@ -111,7 +156,7 @@
         <button class="btn btn-outline-secondary mr-auto border">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success">
+        <button class="btn btn-success" [disabled]="!form.valid">
           <span class="spinner-border spinner-border-sm mr-1"></span>
           Salvar Alteração
         </button>
