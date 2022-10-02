@@ -12,6 +12,7 @@ namespace ProEvents.Domain
         public int NumberOfPerson { get; set; }
         public string ImageUrl { get; set; }
         public string phone { get; set; }
+        public string Email { get; set; }
         public IEnumerable<Lote> Lotes { get; set; }
         public IEnumerable<SocialMedia> SocialMedias { get; set; }
         public IEnumerable<EventSpeaker> EventSpeakers { get; set; }
