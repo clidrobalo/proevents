@@ -39,7 +39,8 @@ export class ProfileComponent implements OnInit {
     }, formOptions);
   }
 
-  public resetForm(): void {
+  public resetForm(event: any): void {
+    event.preventDefault(); // to prevent reload
     this.profileForm.reset();
   }
 

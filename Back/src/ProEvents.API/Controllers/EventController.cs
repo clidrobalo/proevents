@@ -3,8 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProEvents.Application.Dtos;
 using ProEvents.Application.Interfaces;
-using ProEvents.Domain;
 
 namespace ProEvents.API.Controllers
 {
@@ -29,8 +29,9 @@ namespace ProEvents.API.Controllers
 
                 if (Events == null)
                 {
-                    return NotFound("Events not Found");
+                    return NoContent();
                 }
+
                 return Ok(Events);
             }
             catch (Exception e)
@@ -49,7 +50,7 @@ namespace ProEvents.API.Controllers
 
                 if (Event == null)
                 {
-                    return NotFound("Event not Found");
+                    return NoContent();
                 }
                 return Ok(Event);
             }
@@ -69,7 +70,7 @@ namespace ProEvents.API.Controllers
 
                 if (Events == null)
                 {
-                    return NotFound("Events not Found");
+                    return NoContent();
                 }
                 return Ok(Events);
             }
@@ -81,7 +82,7 @@ namespace ProEvents.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(Event model)
+        public async Task<IActionResult> Save(EventDTO model)
         {
             try
             {
@@ -89,7 +90,7 @@ namespace ProEvents.API.Controllers
 
                 if (Event == null)
                 {
-                    return BadRequest("Event not Saved.");
+                    return NoContent();
                 }
                 return Ok(Event);
             }
@@ -101,7 +102,7 @@ namespace ProEvents.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(int id, Event model)
+        public async Task<IActionResult> Update(int id, EventDTO model)
         {
             try
             {
@@ -109,7 +110,7 @@ namespace ProEvents.API.Controllers
 
                 if (Event == null)
                 {
-                    return BadRequest("Event not Updated.");
+                    return NoContent();
                 }
                 return Ok(Event);
             }

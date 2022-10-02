@@ -8,4 +8,8 @@
     <ProjectReference Include="..\ProEvents.Domain\ProEvents.Domain.csproj" />
     <ProjectReference Include="..\ProEvents.Repository\ProEvents.Repository.csproj" />
   </ItemGroup>
+
+<ItemGroup>
+  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+</ItemGroup>
 </Project>
