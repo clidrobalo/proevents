@@ -35,7 +35,7 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label>Qtd Pessoas</label>
-          <input type="text" class="form-control"
+          <input type="number" class="form-control"
             [ngClass]="{'is-invalid': form.numberOfPerson.errors && form.numberOfPerson.touched}"
             formControlName="numberOfPerson" placeholder="">
           <div class="invalid-feedback">Qtd people is mandatory</div>
@@ -66,9 +66,14 @@
         <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
-          <span class="spinner-border spinner-border-sm mr-1"></span>
+        <button class="btn btn-success" (click)="saveEvent()" *ngIf="!isToUpdate">
+          <span class="mr-1"></span>
           Salvar Evento
+        </button>
+
+        <button class="btn btn-success" (click)="updateEvent()" *ngIf="isToUpdate">
+          <span class="mr-1"></span>
+          Update Event
         </button>
       </div>
     </div>

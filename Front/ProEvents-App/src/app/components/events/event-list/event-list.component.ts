@@ -55,25 +55,6 @@ export class EventListComponent implements OnInit {
     this.filteredEvents = this.filterList ? this.filterEvents(this._filter) : this.events;
   }
 
-  private filterEvents(value: string): Event[] {
-    value = value.toLowerCase();
-    return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
-      || event.place.toLowerCase().indexOf(value) !== -1);
-  }
-
-  private getEvents(): void {
-    this._eventService.getEvents().subscribe(
-      {
-        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
-        error: (error) => {
-          this.spinner.hide();
-          this.toastr.success('Error in loading events.', 'Failed');
-        },
-        complete: () => { this.spinner.hide(); }
-      }
-    )
-  }
-
   public showImages(): void {
     this.isToShowImages = !this.isToShowImages;
   }
@@ -93,7 +74,7 @@ export class EventListComponent implements OnInit {
     this._modalRef = this.modalService.show(template, mo);
   }
 
-  confirmDelete(): void {
+  public confirmDelete(): void {
     this._modalRef?.hide();
     this.spinner.show();
 
@@ -108,12 +89,31 @@ export class EventListComponent implements OnInit {
     });
   }
 
-  declineDelete(): void {
+  public declineDelete(): void {
     this._modalRef?.hide();
   }
   // MODAL - END
 
-  showDetail(id: number): void {
+  public showDetail(id: number): void {
     this.route.navigate([`events/detail/${id}`]);
+  }
+
+  private filterEvents(value: string): Event[] {
+    value = value.toLowerCase();
+    return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
+      || event.place.toLowerCase().indexOf(value) !== -1);
+  }
+
+  private getEvents(): void {
+    this._eventService.getEvents().subscribe(
+      {
+        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
+        error: (error) => {
+          this.spinner.hide();
+          this.toastr.success('Error in loading events.', 'Failed');
+        },
+        complete: () => { this.spinner.hide(); }
+      }
+    )
   }
 }

@@ -6,6 +6,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Event } from '@models/Event';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { timeStamp } from 'console';
 
 @Component({
   selector: 'app-event-detail',
@@ -15,6 +16,7 @@ import { Toast, ToastrService } from 'ngx-toastr';
 export class EventDetailComponent implements OnInit {
   public eventDetailForm!: FormGroup;
   public event = {} as Event;
+  public isToUpdate: boolean = false;
 
   get form(): any {
     return this.eventDetailForm.controls;
@@ -42,10 +44,47 @@ export class EventDetailComponent implements OnInit {
     this.validation();
   }
 
+  public resetForm(): void {
+    this.eventDetailForm.reset();
+  }
+
+  public saveEvent(): void {
+    this.spinnerService.show();
+
+    this.event = { ... this.eventDetailForm.value };
+
+    this.eventService.addEvent(this.event).subscribe({
+      next: (resp: Event) => { this.toastService.success("Event saved successful.", "Success"); },
+      error: (err: any) => {
+        console.log(err);
+        this.spinnerService.hide();
+        this.toastService.error("Error in Save Event.", "Error")
+      },
+      complete: () => { this.spinnerService.hide(); }
+    })
+  }
+
+  public updateEvent(): void {
+    this.spinnerService.show();
+
+    this.event = { ... this.eventDetailForm.value };
+
+    this.eventService.updateEvent(this.event).subscribe({
+      next: (resp: Event) => { this.toastService.success("Event updated successful.", "Success"); },
+      error: (err: any) => {
+        console.log(err);
+        this.spinnerService.hide();
+        this.toastService.error("Error in Update Event.", "Error")
+      },
+      complete: () => { this.spinnerService.hide(); }
+    })
+  }
+
   private loadEvent(): void {
     const eventIdParam = this.route.snapshot.paramMap.get('id');
 
     if (eventIdParam !== null) {
+      this.isToUpdate = true;
       // show spinner
       this.spinnerService.show();
 
@@ -66,11 +105,14 @@ export class EventDetailComponent implements OnInit {
           this.spinnerService.hide();
         }
       })
+    } else {
+      this.isToUpdate = false;
     }
   }
 
   private validation(): void {
     this.eventDetailForm = this.fb.group({
+      id: [''],
       theme: ['', [
         Validators.required,
         Validators.minLength(4),
@@ -86,14 +128,8 @@ export class EventDetailComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.email]],
-      imageUrl: ['', Validators.required],
-      lotes: ['', Validators.required],
-      socialMedias: ['', Validators.required],
-      eventSpeakers: ['', Validators.required],
+      imageUrl: ['', Validators.required]
     });
   }
 
-  public resetForm(): void {
-    this.eventDetailForm.reset();
-  }
 }
