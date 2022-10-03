@@ -102,12 +102,12 @@ namespace ProEvents.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, EventDTO model)
+        [HttpPut]
+        public async Task<IActionResult> Update(EventDTO model)
         {
             try
             {
-                var Event = await _eventService.UpdateEvent(id, model);
+                var Event = await _eventService.UpdateEvent(model);
 
                 if (Event == null)
                 {

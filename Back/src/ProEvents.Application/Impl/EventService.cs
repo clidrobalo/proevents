@@ -101,11 +101,11 @@ namespace ProEvents.Application.Impl
             }
         }
 
-        public async Task<EventDTO> UpdateEvent(int eventId, EventDTO eventDTO)
+        public async Task<EventDTO> UpdateEvent(EventDTO eventDTO)
         {
             try
             {
-                var Event = await _eventRepository.GetEventByIdAsync(eventId);
+                var Event = await _eventRepository.GetEventByIdAsync(eventDTO.Id);
 
                 if (Event == null) return null;
 
@@ -113,7 +113,7 @@ namespace ProEvents.Application.Impl
 
                 if (await _genericRepository.SaveChangesAsync())
                 {
-                    Event = await _eventRepository.GetEventByIdAsync(eventId);
+                    Event = await _eventRepository.GetEventByIdAsync(eventDTO.Id);
                     return this._mapper.Map<EventDTO>(Event);
                 }
                 return null;
