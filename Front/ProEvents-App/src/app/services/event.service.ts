@@ -15,11 +15,11 @@ export class EventService {
     return this._http.get<Event[]>(this._baseURL);
   }
 
-  public getEventById(id: number): Observable<Event[]> {
-    return this._http.get<Event[]>(`${this._baseURL}/${id}`);
+  public getEventById(id: number): Observable<Event> {
+    return this._http.get<Event>(`${this._baseURL}/id/${id}`);
   }
 
   public getEventsByTheme(theme: string): Observable<Event[]> {
-    return this._http.get<Event[]>(`${this._baseURL}/${theme}`);
+    return this._http.get<Event[]>(`${this._baseURL}/theme/${theme}`);
   }
 }
