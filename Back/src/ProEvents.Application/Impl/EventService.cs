@@ -90,7 +90,7 @@ namespace ProEvents.Application.Impl
                 _genericRepository.Add<Event>(Event);
                 if (await _genericRepository.SaveChangesAsync())
                 {
-                    Event = await _eventRepository.GetEventByIdAsync(eventDTO.Id);
+                    Event = await _eventRepository.GetEventByIdAsync(Event.Id);
                     return this._mapper.Map<EventDTO>(Event);
                 }
                 return null;
@@ -113,7 +113,7 @@ namespace ProEvents.Application.Impl
 
                 if (await _genericRepository.SaveChangesAsync())
                 {
-                    Event = await _eventRepository.GetEventByIdAsync(eventDTO.Id);
+                    Event = await _eventRepository.GetEventByIdAsync(eventId);
                     return this._mapper.Map<EventDTO>(Event);
                 }
                 return null;

@@ -41,7 +41,7 @@ namespace ProEvents.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -61,7 +61,7 @@ namespace ProEvents.API.Controllers
             }
         }
 
-        [HttpGet("{theme}")]
+        [HttpGet("theme/{theme}")]
         public async Task<IActionResult> GetByTheme(string theme)
         {
             try
@@ -101,7 +101,7 @@ namespace ProEvents.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, EventDTO model)
         {
             try
@@ -121,7 +121,7 @@ namespace ProEvents.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try

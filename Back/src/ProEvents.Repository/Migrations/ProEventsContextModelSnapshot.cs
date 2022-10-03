@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProEvents.Repository.Contexts;
 
 namespace ProEvents.Repository.Migrations
@@ -21,7 +22,12 @@ namespace ProEvents.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("EventDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
@@ -31,12 +37,15 @@ namespace ProEvents.Repository.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Place")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Theme")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("phone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -177,11 +186,13 @@ namespace ProEvents.Repository.Migrations
                 {
                     b.HasOne("ProEvents.Domain.Event", "Event")
                         .WithMany("SocialMedias")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProEvents.Domain.Speaker", "Speaker")
                         .WithMany("SocialMedias")
-                        .HasForeignKey("SpeakerId");
+                        .HasForeignKey("SpeakerId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Event");
 

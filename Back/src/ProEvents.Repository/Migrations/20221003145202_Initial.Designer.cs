@@ -3,12 +3,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProEvents.Repository.Contexts;
 
-namespace ProEvents.Persistence.Migrations
+namespace ProEvents.Repository.Migrations
 {
     [DbContext(typeof(ProEventsContext))]
-    [Migration("20220930134326_Initial")]
+    [Migration("20221003145202_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +24,12 @@ namespace ProEvents.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("EventDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
@@ -33,12 +39,15 @@ namespace ProEvents.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Place")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Theme")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("phone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -179,11 +188,13 @@ namespace ProEvents.Persistence.Migrations
                 {
                     b.HasOne("ProEvents.Domain.Event", "Event")
                         .WithMany("SocialMedias")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProEvents.Domain.Speaker", "Speaker")
                         .WithMany("SocialMedias")
-                        .HasForeignKey("SpeakerId");
+                        .HasForeignKey("SpeakerId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Event");
 

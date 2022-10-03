@@ -22,7 +22,10 @@ dotnet tool install --global dotnet-ef
 [Migrate Data]
 NewProEvents\Back\src\ProEvents.API> 
 (OLD): dotnet ef migrations add Initial -o Data/Migrations
-(NEw): dotnet ef migrations add Initial -p ProEvents.Persistence -s ProEvents.API
+(NEw): dotnet ef migrations add Initial -p ProEvents.Repository -s ProEvents.API
+
+[Undo migrations]
+dotnet ef migrations remove
 
 [Update database based in the corresponding migrations]
 NewProEvents\Back\src\ProEvents.API>

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ProEvents.Persistence.Migrations
+namespace ProEvents.Repository.Migrations
 {
     public partial class Initial : Migration
     {
@@ -13,12 +13,13 @@ namespace ProEvents.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Place = table.Column<string>(type: "TEXT", nullable: true),
-                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Theme = table.Column<string>(type: "TEXT", nullable: true),
+                    Place = table.Column<string>(type: "TEXT", nullable: false),
+                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Theme = table.Column<string>(type: "TEXT", nullable: false),
                     NumberOfPerson = table.Column<int>(type: "INTEGER", nullable: false),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    phone = table.Column<string>(type: "TEXT", nullable: true)
+                    phone = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,13 +110,13 @@ namespace ProEvents.Persistence.Migrations
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SocialMedias_Speakers_SpeakerId",
                         column: x => x.SpeakerId,
                         principalTable: "Speakers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
