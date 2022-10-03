@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventService } from '@services/event.service';
 import { Event } from '@models/Event';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
@@ -20,6 +20,7 @@ export class EventListComponent implements OnInit {
   public widthImg: number = 150;
   public marginImg = 2;
   public isToShowImages: boolean = true;
+  public eventTheme = '';
 
   private _filter: string = '';
   private _modalRef?: BsModalRef;
@@ -75,8 +76,17 @@ export class EventListComponent implements OnInit {
   }
 
   // MODAL - START
-  public openModal(template: TemplateRef<any>): void {
-    this._modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  public openModal(event: any, template: TemplateRef<any>, eventTheme: string): void {
+    // stopPropagation to not open Event Detail page
+    event.stopPropagation();
+
+    var mo = new ModalOptions();
+    mo.class = 'modal-md';
+    mo.ignoreBackdropClick = true;
+
+    this.eventTheme = eventTheme;
+
+    this._modalRef = this.modalService.show(template, mo);
   }
 
   confirmDelete(): void {

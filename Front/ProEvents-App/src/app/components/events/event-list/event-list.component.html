@@ -50,7 +50,7 @@
         <td class="d-none d-md-table-cell">{{ event.lotes[0]?.name | uppercase}}</td>
         <td>
           <button type="button" class="btn btn-danger btn-md"><i class="fa fa-trash" tooltip="Delete"
-              (click)="openModal(template)"></i></button>
+              (click)="openModal($event, template, event.theme)"></i></button>
         </td>
       </tr>
     </tbody>
@@ -68,7 +68,7 @@
 
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Do you want to confirm delete?</p>
+    <p>Delete Event "{{eventTheme}}"? </p>
     <button type="button" class="btn btn-default" (click)="confirmDelete()">Confirm</button>
     <button type="button" class="btn btn-primary" (click)="declineDelete()">Cancel</button>
   </div>
