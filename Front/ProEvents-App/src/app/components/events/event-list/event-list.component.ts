@@ -22,8 +22,11 @@ export class EventListComponent implements OnInit {
   public isToShowImages: boolean = true;
   public eventTheme = '';
 
+
   private _filter: string = '';
   private _modalRef?: BsModalRef;
+  private _eventId!: number;
+
 
   constructor(
     private _eventService: EventService,
@@ -76,7 +79,7 @@ export class EventListComponent implements OnInit {
   }
 
   // MODAL - START
-  public openModal(event: any, template: TemplateRef<any>, eventTheme: string): void {
+  public openModal(event: any, template: TemplateRef<any>, eventTheme: string, eventId: number): void {
     // stopPropagation to not open Event Detail page
     event.stopPropagation();
 
@@ -85,13 +88,24 @@ export class EventListComponent implements OnInit {
     mo.ignoreBackdropClick = true;
 
     this.eventTheme = eventTheme;
+    this._eventId = eventId;
 
     this._modalRef = this.modalService.show(template, mo);
   }
 
   confirmDelete(): void {
     this._modalRef?.hide();
-    this.toastr.success('Event deleted successful.', 'Success');
+    this.spinner.show();
+
+    this._eventService.deleteEventById(this._eventId).subscribe({
+      next: (resp: string) => { this.toastr.success(resp, 'Success'); },
+      error: (error: any) => {
+        this.spinner.hide();
+        console.log(error);
+        this.toastr.error("Error in deleting Event. Please Contact Support", 'Failed');
+      },
+      complete: () => { this.spinner.hide(); this.getEvents() }
+    });
   }
 
   declineDelete(): void {

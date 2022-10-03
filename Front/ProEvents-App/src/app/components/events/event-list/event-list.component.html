@@ -50,7 +50,7 @@
         <td class="d-none d-md-table-cell">{{ event.lotes[0]?.name | uppercase}}</td>
         <td>
           <button type="button" class="btn btn-danger btn-md"><i class="fa fa-trash" tooltip="Delete"
-              (click)="openModal($event, template, event.theme)"></i></button>
+              (click)="openModal($event, template, event.theme, event.id)"></i></button>
         </td>
       </tr>
     </tbody>

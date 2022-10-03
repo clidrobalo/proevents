@@ -31,7 +31,7 @@ export class EventService {
     return this._http.put<Event>(this._baseURL, event);
   }
 
-  public deleteEvent(id: number): Observable<string> {
-    return this._http.delete<string>(`${this._baseURL}/${id}`);
+  public deleteEventById(id: number) {
+    return this._http.delete(`${this._baseURL}/${id}`, { responseType: 'text' });
   }
 }
