@@ -28,7 +28,7 @@
           <label>Data e Hora</label>
           <input type="datetime" class="form-control"
             [ngClass]="{'is-invalid': form.eventDate.errors && form.eventDate.touched}" formControlName="eventDate"
-            placeholder="">
+            placeholder="" bsDatepicker [bsConfig]="bsConfig">
           <div class="invalid-feedback">Date is mandatory</div>
         </div>
       </div>

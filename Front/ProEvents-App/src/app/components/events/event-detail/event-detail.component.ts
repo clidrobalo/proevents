@@ -13,6 +13,15 @@ export class EventDetailComponent implements OnInit {
     return this.eventDetailForm.controls;
   }
 
+  get bsConfig(): any {
+    return {
+      adaptivePosition: true,
+      dateInputFormat: 'DD-MM-YYYY hh:mm a',
+      containerClass: 'theme-default',
+      showWeekNumbers: false
+    }
+  }
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
