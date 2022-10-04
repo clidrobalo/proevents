@@ -11,6 +11,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { NgxCurrencyModule } from "ngx-currency";
 
 
 import { ToastrModule } from 'ngx-toastr';
@@ -66,6 +67,7 @@ defineLocale('pt-br', ptBrLocale);
     ModalModule.forRoot(),
     NgxSpinnerModule,
     BsDatepickerModule,
+    NgxCurrencyModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       positionClass: 'toast-bottom-right',

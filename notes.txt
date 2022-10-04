@@ -85,3 +85,6 @@ npm install ngx-spinner@13.1.1 --save
 
 [install bootswatch]
 npm install bootswatch
+
+[install ngx-currency]
+npm install ngx-currency --save
