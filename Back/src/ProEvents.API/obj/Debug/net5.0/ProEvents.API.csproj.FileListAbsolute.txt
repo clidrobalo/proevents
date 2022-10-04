@@ -69,5 +69,5 @@ C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debu
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\obj\Debug\net5.0\refint\ProEvents.API.dll
-C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\ProEvents.API.StaticWebAssets.xml
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\ref\ProEvents.API.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\obj\Debug\net5.0\staticwebassets\ProEvents.API.StaticWebAssets.xml

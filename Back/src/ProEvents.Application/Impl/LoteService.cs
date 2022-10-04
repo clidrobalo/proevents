@@ -89,10 +89,10 @@ namespace ProEvents.Application.Impl
 
                 foreach (var lote in _lotes)
                 {
+                    lote.EventId = eventId;
                     // Save a new One
                     if (lote.Id == 0)
                     {
-                        lote.EventId = eventId;
                         _genericRepository.Add<Lote>(lote);
                     }
                     else

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '@app/services/event.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Event } from '@models/Event';
+import { Lote } from '@models/Lote';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Toast, ToastrService } from 'ngx-toastr';
-import { timeStamp } from 'console';
+import { ToastrService } from 'ngx-toastr';
+import { LoteService } from '@app/services/lote.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -22,6 +23,10 @@ export class EventDetailComponent implements OnInit {
     return this.eventDetailForm.controls;
   }
 
+  get lotes(): FormArray {
+    return this.form['lotes'] as FormArray;
+  }
+
   get bsConfig(): any {
     return {
       adaptivePosition: true,
@@ -33,8 +38,10 @@ export class EventDetailComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private localeService: BsLocaleService,
-    private route: ActivatedRoute,
+    private activetedRoute: ActivatedRoute,
+    private router: Router,
     private eventService: EventService,
+    private loteService: LoteService,
     private spinnerService: NgxSpinnerService,
     private toastService: ToastrService) { }
 
@@ -54,7 +61,11 @@ export class EventDetailComponent implements OnInit {
     this.event = { ... this.eventDetailForm.value };
 
     this.eventService.addEvent(this.event).subscribe({
-      next: (resp: Event) => { this.toastService.success("Event saved successful.", "Success"); },
+      next: (resp: Event) => {
+        this.toastService.success("Event saved successful.", "Success");
+        // To enable Lotes form
+        this.router.navigate([`events/detail/${resp.id}`]);
+      },
       error: (err: any) => {
         console.log(err);
         this.spinnerService.hide();
@@ -80,8 +91,39 @@ export class EventDetailComponent implements OnInit {
     })
   }
 
+  public saveLote(): void {
+    this.spinnerService.show();
+
+    var lotes: Lote[] = this.form['lotes'].value;
+
+    this.loteService.saveLotes(this.event.id, lotes).subscribe({
+      next: (resp: Lote[]) => { this.toastService.success("Lotes saved successful.", "Success"); },
+      error: (err) => {
+        console.log(err);
+        this.spinnerService.hide();
+        this.toastService.error("Error in Save Lotes.", "Error")
+      },
+      complete: () => { this.spinnerService.hide(); }
+    })
+  }
+
+  public addLote(): void {
+    this.lotes.push(this.createLote({ id: 0 } as Lote));
+  }
+
+  private createLote(lote: Lote): FormGroup {
+    return this.fb.group({
+      id: [lote.id],
+      name: [lote.name, Validators.required],
+      price: [lote.price, Validators.required],
+      startDate: [lote.startDate, Validators.required],
+      endDate: [lote.endDate, Validators.required],
+      quantity: [lote.quantity, Validators.required],
+    })
+  }
+
   private loadEvent(): void {
-    const eventIdParam = this.route.snapshot.paramMap.get('id');
+    const eventIdParam = this.activetedRoute.snapshot.paramMap.get('id');
 
     if (eventIdParam !== null) {
       this.isToUpdate = true;
@@ -92,6 +134,11 @@ export class EventDetailComponent implements OnInit {
         next: (response: Event) => {
           this.event = response,
             this.eventDetailForm.patchValue(this.event);
+
+          this.event.lotes.forEach(lote => {
+            this.lotes.push(this.createLote(lote));
+          });
+
           this.toastService.success("Event detail loaded successful.", "Success");
         },
         error: (err) => {
@@ -103,7 +150,7 @@ export class EventDetailComponent implements OnInit {
         complete: () => {
           // Hide spinner
           this.spinnerService.hide();
-        }
+        },
       })
     } else {
       this.isToUpdate = false;
@@ -112,7 +159,7 @@ export class EventDetailComponent implements OnInit {
 
   private validation(): void {
     this.eventDetailForm = this.fb.group({
-      id: [''],
+      id: [0],
       theme: ['', [
         Validators.required,
         Validators.minLength(4),
@@ -128,8 +175,8 @@ export class EventDetailComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.email]],
-      imageUrl: ['', Validators.required]
+      imageUrl: ['', Validators.required],
+      lotes: this.fb.array([])
     });
   }
-
 }

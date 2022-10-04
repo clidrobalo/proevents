@@ -9,4 +9,4 @@ C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\D
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ref\ProEvents.Domain.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\ProEvents.Domain.pdb
-C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\obj\Debug\net5.0\refint\ProEvents.Domain.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Domain\bin\Debug\net5.0\ref\ProEvents.Domain.dll

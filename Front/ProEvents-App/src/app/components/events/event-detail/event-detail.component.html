@@ -79,3 +79,88 @@
     </div>
   </form>
 </div>
+
+
+<div class="card shadow-sm mt-4 mb-4" *ngIf="isToUpdate">
+  <div class="p-3">
+    <div class="d-flex justify-content-between">
+      <h3>Event Lotes</h3>
+      <i class="fa fa-duotone fa-money-bill"></i>
+    </div>
+
+    <hr>
+    <p>Click in Lote button to add a new Lote</p>
+  </div>
+
+  <form [formGroup]="eventDetailForm">
+    <div class="p-3" formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
+      <fieldset class="form-group" [formGroupName]="i">
+        <legend class="d-flex justify-content-between capitalize">
+          <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex" tooltip="Excluir Lote"
+            [adaptivePosition]="false" placement="left" [delay]="500">
+            <i class="fa fa-window-close my-1"></i>
+            <b class="ml-1 d-none d-sm-block">Excluir</b>
+          </button>
+        </legend>
+        <hr>
+        <div class="row mt-3">
+          <div class="form-group col-md-4">
+            <label>Nome</label>
+            <input type="text" class="form-control" placeholder="Lote"
+              [ngClass]="{'is-invalid': lotes.get(i+'.name')?.errors && lotes.get(i+'.name')?.touched}"
+              formControlName="name">
+            <div class="invalid-feedback">Name is mandatory</div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Quantidade</label>
+            <input type="text" class="form-control" placeholder="000"
+              [ngClass]="{'is-invalid': lotes.get(i+'.quantity')?.errors && lotes.get(i+'.quantity')?.touched}"
+              formControlName="quantity">
+            <div class="invalid-feedback">Quantity is mandatory</div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Preço</label>
+            <input type="text" class="form-control" placeholder="R$ 0,00"
+              [ngClass]="{'is-invalid': lotes.get(i+'.price')?.errors && lotes.get(i+'.price')?.touched}"
+              formControlName="price">
+            <div class="invalid-feedback">Price is mandatory</div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Data Início</label>
+            <input type="text" class="form-control" placeholder="01/01/2021"
+              [ngClass]="{'is-invalid': lotes.get(i+'.startDate')?.errors && lotes.get(i+'.startDate')?.touched}"
+              formControlName="startDate">
+            <div class="invalid-feedback">Start Date is mandatory</div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Data Fim</label>
+            <input type="text" class="form-control" placeholder="01/01/2021"
+              [ngClass]="{'is-invalid': lotes.get(i+'.endDate')?.errors && lotes.get(i+'.endDate')?.touched}"
+              formControlName="endDate">
+            <div class="invalid-feedback">End Date is mandatory</div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="p-3">
+      <button class="d-flex btn btn-outline-primary" (click)="addLote()">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1">Lote</b>
+      </button>
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success" (click)="saveLote()">
+          <span class="mr-1"></span>
+          Save Lotes
+        </button>
+      </div>
+    </div>
+  </form>
+
+</div>
