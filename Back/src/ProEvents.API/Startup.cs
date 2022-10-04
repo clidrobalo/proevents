@@ -41,7 +41,9 @@ namespace ProEvents.API
 
             // Enable Inject  
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ILoteRepository, LoteRepository>();
             services.AddScoped<ISpeakerRepository, SpeakerRepository>();
             services.AddScoped<IGenericRepository, GenericRepository>();
 

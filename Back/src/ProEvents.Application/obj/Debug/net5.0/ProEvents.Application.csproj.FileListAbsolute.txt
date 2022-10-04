@@ -1,6 +1,5 @@
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Application.deps.json
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Application.dll
-C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ref\ProEvents.Application.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Application.pdb
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Domain.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Domain.pdb
@@ -15,3 +14,4 @@ C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\obj\Debug\net5.0\ProEvents.Application.pdb
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Repository.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\bin\Debug\net5.0\ProEvents.Repository.pdb
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.Application\obj\Debug\net5.0\refint\ProEvents.Application.dll
