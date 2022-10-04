@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '@app/services/event.service';
@@ -8,6 +8,7 @@ import { Lote } from '@models/Lote';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { LoteService } from '@app/services/lote.service';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-event-detail',
@@ -18,6 +19,14 @@ export class EventDetailComponent implements OnInit {
   public eventDetailForm!: FormGroup;
   public event = {} as Event;
   public isToUpdate: boolean = false;
+
+  private _modalRef?: BsModalRef;
+
+  public loteAtual: {
+    id: number,
+    index: number,
+    name: string
+  } = { id: 0, index: 0, name: '' };
 
   get form(): any {
     return this.eventDetailForm.controls;
@@ -43,7 +52,8 @@ export class EventDetailComponent implements OnInit {
     private eventService: EventService,
     private loteService: LoteService,
     private spinnerService: NgxSpinnerService,
-    private toastService: ToastrService) { }
+    private toastService: ToastrService,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.localeService.use('pt-br');
@@ -109,6 +119,48 @@ export class EventDetailComponent implements OnInit {
 
   public addLote(): void {
     this.lotes.push(this.createLote({ id: 0 } as Lote));
+  }
+
+  public deleteLote(index: number): void {
+    this.loteAtual = {
+      id: this.lotes.get(index + '.id')?.value,
+      index: index,
+      name: this.lotes.get(index + '.name')?.value
+    }
+  }
+
+  public confirmLoteDelete(): void {
+    this._modalRef?.hide();
+    this.spinnerService.show();
+
+    this.loteService.deleteLoteById(this.loteAtual.id).subscribe({
+      next: (resp: string) => { this.toastService.success(resp, 'Success'); this.lotes.removeAt(this.loteAtual.index); },
+      error: (error: any) => {
+        this.spinnerService.hide();
+        console.log(error);
+        this.toastService.error("Error in deleting Lote. Please Contact Support", 'Failed');
+      },
+      complete: () => { this.spinnerService.hide(); }
+    });
+  }
+
+  public declineLoteDelete(): void {
+    this._modalRef?.hide();
+  }
+
+  // MODAL - START
+  public openModal(template: TemplateRef<any>, index: number): void {
+    var mo = new ModalOptions();
+    mo.class = 'modal-md';
+    mo.ignoreBackdropClick = true;
+
+    this.loteAtual = {
+      id: this.lotes.get(index + '.id')?.value,
+      index: index,
+      name: this.lotes.get(index + '.name')?.value
+    }
+
+    this._modalRef = this.modalService.show(template, mo);
   }
 
   private createLote(lote: Lote): FormGroup {

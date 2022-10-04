@@ -97,7 +97,7 @@
       <fieldset class="form-group" [formGroupName]="i">
         <legend class="d-flex justify-content-between capitalize">
           <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex" tooltip="Excluir Lote"
-            [adaptivePosition]="false" placement="left" [delay]="500">
+            [adaptivePosition]="false" placement="left" [delay]="500" (click)="openModal(template, i)">
             <i class="fa fa-window-close my-1"></i>
             <b class="ml-1 d-none d-sm-block">Excluir</b>
           </button>
@@ -164,3 +164,12 @@
   </form>
 
 </div>
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Delete Lote "{{loteAtual.name}}"? </p>
+    <button type="button" class="btn btn-default" (click)="confirmLoteDelete()">Confirm</button>
+    <button type="button" class="btn btn-primary" (click)="declineLoteDelete()">Cancel</button>
+  </div>
+</ng-template>

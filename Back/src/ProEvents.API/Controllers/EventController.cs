@@ -24,7 +24,7 @@ namespace ProEvents.API.Controllers
         {
             try
             {
-                //Thread.Sleep(1000); // delay for spinner in frontend
+                Thread.Sleep(1000); // delay for spinner in frontend
                 var Events = await _eventService.GetAllEventsAsync();
 
                 if (Events == null)
