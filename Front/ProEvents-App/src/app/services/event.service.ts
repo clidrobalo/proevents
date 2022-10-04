@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Event } from '../models/Event';
 
 @Injectable({
@@ -12,26 +12,26 @@ export class EventService {
   constructor(private _http: HttpClient) { }
 
   public getEvents(): Observable<Event[]> {
-    return this._http.get<Event[]>(this._baseURL);
+    return this._http.get<Event[]>(this._baseURL).pipe(take(1));
   }
 
   public getEventById(id: number): Observable<Event> {
-    return this._http.get<Event>(`${this._baseURL}/id/${id}`);
+    return this._http.get<Event>(`${this._baseURL}/id/${id}`).pipe(take(1));
   }
 
   public getEventsByTheme(theme: string): Observable<Event[]> {
-    return this._http.get<Event[]>(`${this._baseURL}/theme/${theme}`);
+    return this._http.get<Event[]>(`${this._baseURL}/theme/${theme}`).pipe(take(1));
   }
 
   public addEvent(event: Event): Observable<Event> {
-    return this._http.post<Event>(this._baseURL, event);
+    return this._http.post<Event>(this._baseURL, event).pipe(take(1));
   }
 
   public updateEvent(event: Event): Observable<Event> {
-    return this._http.put<Event>(this._baseURL, event);
+    return this._http.put<Event>(this._baseURL, event).pipe(take(1));
   }
 
   public deleteEventById(id: number) {
-    return this._http.delete(`${this._baseURL}/${id}`, { responseType: 'text' });
+    return this._http.delete(`${this._baseURL}/${id}`, { responseType: 'text' }).pipe(take(1));
   }
 }
