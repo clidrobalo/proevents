@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEvents.Application.Dtos;
@@ -13,10 +16,12 @@ namespace ProEvents.API.Controllers
     public class EventController : ControllerBase
     {
         private readonly IEventService _eventService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EventController(IEventService eventService)
+        public EventController(IEventService eventService, IWebHostEnvironment webHostEnvironment)
         {
             this._eventService = eventService;
+            this._webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -102,6 +107,36 @@ namespace ProEvents.API.Controllers
             }
         }
 
+        [HttpPost("upload-image/{eventId}")]
+        public async Task<IActionResult> UploadImage(int eventId)
+        {
+            try
+            {
+                var _event = await _eventService.GetEventByIdAsync(eventId);
+
+                if (_event == null)
+                {
+                    return NoContent();
+                }
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    DeleteImage(_event.ImageUrl);
+                    _event.ImageUrl = await SaveImage(file);
+                }
+
+                _event = await _eventService.UpdateEvent(_event);
+
+                return Ok(_event);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Error in Upload Image. Error: {e.Message}");
+            }
+        }
+
         [HttpPut]
         public async Task<IActionResult> Update(EventDTO model)
         {
@@ -141,5 +176,38 @@ namespace ProEvents.API.Controllers
                 $"Error in Delete Event. Error: {e.Message}");
             }
         }
+
+        [NonAction]
+        private async Task<string> SaveImage(IFormFile file)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(file.FileName)
+            //.Take(10) // take the first 10 characters
+            .ToArray())
+            .Replace(' ', '-');
+
+            imageName = $"{imageName}__{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(file.FileName)}";
+
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, @"Resources/Images", imageName);
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            return imageName;
+        }
+
+        [NonAction]
+        private void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Resources/Images", imageName);
+
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+        }
     }
+
+
 }
