@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-event-list',
@@ -96,6 +97,10 @@ export class EventListComponent implements OnInit {
 
   public showDetail(id: number): void {
     this.route.navigate([`events/detail/${id}`]);
+  }
+
+  public loadImage(imageURL: string) {
+    return this._eventService.loadImage(imageURL);
   }
 
   private filterEvents(value: string): Event[] {

@@ -39,8 +39,8 @@
     <tbody>
       <tr *ngFor="let event of filteredEvents" (click)="showDetail(event.id)" style="cursor: pointer;">
         <td class="d-none d-md-table-cell">
-          <img [collapse]="!isToShowImages" [isAnimated]="true" src="assets/foto3.jpg" [style.width.px]="widthImg"
-            [style.margin.px]="marginImg">
+          <img [collapse]="!isToShowImages" [isAnimated]="true" [src]="loadImage(event.imageUrl)"
+            [style.width.px]="widthImg" [style.margin.px]="marginImg">
         </td>
         <td>{{ event.id }}</td>
         <td>{{ event.theme }}</td>

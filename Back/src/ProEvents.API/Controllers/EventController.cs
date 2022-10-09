@@ -162,10 +162,11 @@ namespace ProEvents.API.Controllers
         {
             try
             {
-                var wasDeleted = await _eventService.DeleteEvent(id);
+                var _event = await _eventService.GetEventByIdAsync(id);
 
-                if (wasDeleted)
+                if (_event != null && (await _eventService.DeleteEvent(id)))
                 {
+                    DeleteImage(_event.ImageUrl);
                     return Ok("Event Deleted");
                 }
                 return BadRequest("Event not Deleted.");

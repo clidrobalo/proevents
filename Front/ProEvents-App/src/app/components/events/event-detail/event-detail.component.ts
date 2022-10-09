@@ -9,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { LoteService } from '@app/services/lote.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-event-detail',
@@ -19,6 +20,8 @@ export class EventDetailComponent implements OnInit {
   public eventDetailForm!: FormGroup;
   public event = {} as Event;
   public isToUpdate: boolean = false;
+  public imageURL: string = '/assets/img/cloud-computing.png';
+  public file: any;
 
   private _modalRef?: BsModalRef;
 
@@ -163,6 +166,33 @@ export class EventDetailComponent implements OnInit {
     this._modalRef = this.modalService.show(template, mo);
   }
 
+  public onFileChange(event: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.imageURL = event.target.result;
+
+    this.file = event.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImage();
+  }
+
+  private uploadImage(): void {
+    this.spinnerService.show();
+    this.eventService.uploadImage(this.event.id, this.file[0]).subscribe({
+      next: (event: Event) => {
+        this.loadEvent();
+        this.toastService.success('Image uploaded successful.', 'Success')
+      },
+      error: (error: any) => {
+        this.toastService.error('Error in Image uploaded.', 'Failed')
+      },
+      complete: () => {
+        this.spinnerService.hide();
+      }
+    })
+  }
+
   private createLote(lote: Lote): FormGroup {
     return this.fb.group({
       id: [lote.id],
@@ -186,6 +216,10 @@ export class EventDetailComponent implements OnInit {
         next: (response: Event) => {
           this.event = response,
             this.eventDetailForm.patchValue(this.event);
+
+          if (this.event.imageUrl !== '') {
+            this.imageURL = `${environment.apiURL}/resources/images/${this.event.imageUrl}`;
+          }
 
           this.event.lotes.forEach(lote => {
             this.lotes.push(this.createLote(lote));
