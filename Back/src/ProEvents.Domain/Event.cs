@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ProEvents.Domain.Identity;
 
 namespace ProEvents.Domain
 {
@@ -23,5 +24,7 @@ namespace ProEvents.Domain
         public IEnumerable<Lote> Lotes { get; set; }
         public IEnumerable<SocialMedia> SocialMedias { get; set; }
         public IEnumerable<EventSpeaker> EventSpeakers { get; set; }
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }
