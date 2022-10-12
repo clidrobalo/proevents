@@ -7,36 +7,6 @@ namespace ProEvents.Repository.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Speakers");
-
-            migrationBuilder.DropColumn(
-                name: "ImageURL",
-                table: "Speakers");
-
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "Speakers");
-
-            migrationBuilder.DropColumn(
-                name: "Phone",
-                table: "Speakers");
-
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Speakers",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Events",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -59,8 +29,9 @@ namespace ProEvents.Repository.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    lastName = table.Column<string>(type: "TEXT", nullable: true),
-                    title = table.Column<int>(type: "INTEGER", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<int>(type: "INTEGER", nullable: false),
                     ImageURL = table.Column<string>(type: "TEXT", nullable: true),
                     description = table.Column<string>(type: "TEXT", nullable: true),
                     function = table.Column<int>(type: "INTEGER", nullable: false),
@@ -190,15 +161,127 @@ namespace ProEvents.Repository.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Speakers_UserId",
-                table: "Speakers",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Place = table.Column<string>(type: "TEXT", nullable: false),
+                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Theme = table.Column<string>(type: "TEXT", nullable: false),
+                    NumberOfPerson = table.Column<int>(type: "INTEGER", nullable: false),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    phone = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Events_UserId",
-                table: "Events",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Speakers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Resume = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Speakers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Speakers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    EventId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lotes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Lotes_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventSpeakers",
+                columns: table => new
+                {
+                    EventId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SpeakerId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventSpeakers", x => new { x.EventId, x.SpeakerId });
+                    table.ForeignKey(
+                        name: "FK_EventSpeakers_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventSpeakers_Speakers_SpeakerId",
+                        column: x => x.SpeakerId,
+                        principalTable: "Speakers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SocialMedias",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    URL = table.Column<string>(type: "TEXT", nullable: true),
+                    EventId = table.Column<int>(type: "INTEGER", nullable: true),
+                    SpeakerId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialMedias", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SocialMedias_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SocialMedias_Speakers_SpeakerId",
+                        column: x => x.SpeakerId,
+                        principalTable: "Speakers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -237,33 +320,39 @@ namespace ProEvents.Repository.Migrations
                 column: "NormalizedUserName",
                 unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Events_AspNetUsers_UserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_UserId",
                 table: "Events",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "UserId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Speakers_AspNetUsers_UserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_EventSpeakers_SpeakerId",
+                table: "EventSpeakers",
+                column: "SpeakerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lotes_EventId",
+                table: "Lotes",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SocialMedias_EventId",
+                table: "SocialMedias",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SocialMedias_SpeakerId",
+                table: "SocialMedias",
+                column: "SpeakerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Speakers_UserId",
                 table: "Speakers",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Events_AspNetUsers_UserId",
-                table: "Events");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Speakers_AspNetUsers_UserId",
-                table: "Speakers");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -280,50 +369,25 @@ namespace ProEvents.Repository.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "EventSpeakers");
+
+            migrationBuilder.DropTable(
+                name: "Lotes");
+
+            migrationBuilder.DropTable(
+                name: "SocialMedias");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Speakers");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Speakers_UserId",
-                table: "Speakers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Events_UserId",
-                table: "Events");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Speakers");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Events");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Speakers",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ImageURL",
-                table: "Speakers",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "Speakers",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Phone",
-                table: "Speakers",
-                type: "TEXT",
-                nullable: true);
         }
     }
 }

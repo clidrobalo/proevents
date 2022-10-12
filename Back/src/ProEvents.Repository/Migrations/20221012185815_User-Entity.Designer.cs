@@ -9,7 +9,7 @@ using ProEvents.Repository.Contexts;
 namespace ProEvents.Repository.Migrations
 {
     [DbContext(typeof(ProEventsContext))]
-    [Migration("20221011193053_User-Entity")]
+    [Migration("20221012185815_User-Entity")]
     partial class UserEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -212,6 +212,9 @@ namespace ProEvents.Repository.Migrations
                     b.Property<string>("ImageURL")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
@@ -226,6 +229,9 @@ namespace ProEvents.Repository.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -238,6 +244,9 @@ namespace ProEvents.Repository.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Title")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
 
@@ -249,12 +258,6 @@ namespace ProEvents.Repository.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("function")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("lastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("title")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

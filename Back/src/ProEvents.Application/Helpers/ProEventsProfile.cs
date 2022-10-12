@@ -16,6 +16,7 @@ namespace ProEvents.Application.Helpers
 
             /// USER
             CreateMap<User, UserDetailDTO>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }
