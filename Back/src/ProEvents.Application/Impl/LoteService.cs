@@ -13,9 +13,8 @@ namespace ProEvents.Application.Impl
     public class LoteService : ILoteService
     {
         private readonly IGenericRepository _genericRepository;
-        private readonly ILoteRepository _loteRepository;
-
         private readonly IMapper _mapper;
+        private readonly ILoteRepository _loteRepository;
 
         public LoteService(ILoteRepository loteRepository, IGenericRepository genericRepository, IMapper mapper)
         {

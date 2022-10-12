@@ -76,3 +76,8 @@ C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debu
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\csrobalo\Documents\academy\NewProEvents\Back\src\ProEvents.API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

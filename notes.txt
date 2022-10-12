@@ -2,6 +2,8 @@ https://github.com/vsandrade/ProEventos.git
 
 https://localhost:5001/resources/images/foto3.jpg
 
+Exemplo login: https://login.decathlon.net/?client_id=15e34ffc-819e-441d-9530-56dde37296fb&ui_locales=pt_PT#/sign-in
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 npm install -g @angular/cli@13
