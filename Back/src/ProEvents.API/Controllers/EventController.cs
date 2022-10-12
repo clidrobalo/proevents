@@ -3,14 +3,17 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProEvents.API.Extentions;
 using ProEvents.Application.Dtos;
 using ProEvents.Application.Interfaces;
 
 namespace ProEvents.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EventController : ControllerBase
@@ -30,7 +33,7 @@ namespace ProEvents.API.Controllers
             try
             {
                 Thread.Sleep(1000); // delay for spinner in frontend
-                var Events = await _eventService.GetAllEventsAsync();
+                var Events = await _eventService.GetAllEventsAsync(User.GetUserId());
 
                 if (Events == null)
                 {
@@ -52,7 +55,7 @@ namespace ProEvents.API.Controllers
             try
             {
                 Thread.Sleep(1000); // delay for spinner in frontend
-                var Event = await _eventService.GetEventByIdAsync(id);
+                var Event = await _eventService.GetEventByIdAsync(User.GetUserId(), id);
 
                 if (Event == null)
                 {
@@ -72,7 +75,7 @@ namespace ProEvents.API.Controllers
         {
             try
             {
-                var Events = await _eventService.GetAllEventsByThemeAsync(theme);
+                var Events = await _eventService.GetAllEventsByThemeAsync(User.GetUserId(), theme);
 
                 if (Events == null)
                 {
@@ -112,7 +115,7 @@ namespace ProEvents.API.Controllers
         {
             try
             {
-                var _event = await _eventService.GetEventByIdAsync(eventId);
+                var _event = await _eventService.GetEventByIdAsync(User.GetUserId(), eventId);
 
                 if (_event == null)
                 {
@@ -162,9 +165,10 @@ namespace ProEvents.API.Controllers
         {
             try
             {
-                var _event = await _eventService.GetEventByIdAsync(id);
+                var userId = User.GetUserId();
+                var _event = await _eventService.GetEventByIdAsync(userId, id);
 
-                if (_event != null && (await _eventService.DeleteEvent(id)))
+                if (_event != null && (await _eventService.DeleteEvent(userId, id)))
                 {
                     DeleteImage(_event.ImageUrl);
                     return Ok("Event Deleted");

@@ -27,5 +27,7 @@ namespace ProEvents.Application.Dtos
         public IEnumerable<LoteDTO> Lotes { get; set; }
         public IEnumerable<SocialMediaDTO> SocialMedias { get; set; }
         public IEnumerable<SpeakerDTO> Speakers { get; set; }
+        public int UserId { get; set; }
+        public UserDTO UserDTO { get; set; }
     }
 }

@@ -5,8 +5,8 @@ namespace ProEvents.Repository.Interfaces
 {
     public interface IEventRepository
     {
-        Task<Event[]> GetAllEventsAsync(bool includeSpeakers = false);
-        Task<Event> GetEventByIdAsync(int eventId, bool includeSpeakers = false);
-        Task<Event[]> GetAllEventsByThemeAsync(string theme, bool includeSpeakers = false);
+        Task<Event[]> GetAllEventsAsync(int userId, bool includeSpeakers = false);
+        Task<Event> GetEventByIdAsync(int userId, int eventId, bool includeSpeakers = false);
+        Task<Event[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers = false);
     }
 }

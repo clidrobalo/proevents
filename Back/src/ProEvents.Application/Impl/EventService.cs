@@ -24,11 +24,11 @@ namespace ProEvents.Application.Impl
             _mapper = mapper;
         }
 
-        public async Task<EventDTO[]> GetAllEventsAsync(bool includeSpeakers = false)
+        public async Task<EventDTO[]> GetAllEventsAsync(int userId, bool includeSpeakers = false)
         {
             try
             {
-                var Events = await _eventRepository.GetAllEventsAsync(includeSpeakers);
+                var Events = await _eventRepository.GetAllEventsAsync(userId, includeSpeakers);
 
                 if (Events != null)
                 {
@@ -43,11 +43,11 @@ namespace ProEvents.Application.Impl
             }
         }
 
-        public async Task<EventDTO[]> GetAllEventsByThemeAsync(string theme, bool includeSpeakers = false)
+        public async Task<EventDTO[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers = false)
         {
             try
             {
-                var Events = await _eventRepository.GetAllEventsByThemeAsync(theme, includeSpeakers);
+                var Events = await _eventRepository.GetAllEventsByThemeAsync(userId, theme, includeSpeakers);
 
                 if (Events != null)
                 {
@@ -62,11 +62,11 @@ namespace ProEvents.Application.Impl
             }
         }
 
-        public async Task<EventDTO> GetEventByIdAsync(int eventId, bool includeSpeakers = false)
+        public async Task<EventDTO> GetEventByIdAsync(int userId, int eventId, bool includeSpeakers = false)
         {
             try
             {
-                var Event = await _eventRepository.GetEventByIdAsync(eventId, includeSpeakers);
+                var Event = await _eventRepository.GetEventByIdAsync(userId, eventId, includeSpeakers);
 
                 if (Event != null)
                 {
@@ -90,7 +90,7 @@ namespace ProEvents.Application.Impl
                 _genericRepository.Add<Event>(Event);
                 if (await _genericRepository.SaveChangesAsync())
                 {
-                    Event = await _eventRepository.GetEventByIdAsync(Event.Id);
+                    Event = await _eventRepository.GetEventByIdAsync(eventDTO.UserId, Event.Id);
                     return this._mapper.Map<EventDTO>(Event);
                 }
                 return null;
@@ -105,7 +105,7 @@ namespace ProEvents.Application.Impl
         {
             try
             {
-                var Event = await _eventRepository.GetEventByIdAsync(eventDTO.Id);
+                var Event = await _eventRepository.GetEventByIdAsync(eventDTO.UserId, eventDTO.Id);
 
                 if (Event == null) return null;
 
@@ -113,7 +113,7 @@ namespace ProEvents.Application.Impl
 
                 if (await _genericRepository.SaveChangesAsync())
                 {
-                    Event = await _eventRepository.GetEventByIdAsync(eventDTO.Id);
+                    Event = await _eventRepository.GetEventByIdAsync(eventDTO.UserId, eventDTO.Id);
                     return this._mapper.Map<EventDTO>(Event);
                 }
                 return null;
@@ -124,11 +124,11 @@ namespace ProEvents.Application.Impl
             }
         }
 
-        public async Task<bool> DeleteEvent(int eventId)
+        public async Task<bool> DeleteEvent(int userId, int eventId)
         {
             try
             {
-                var Event = await _eventRepository.GetEventByIdAsync(eventId);
+                var Event = await _eventRepository.GetEventByIdAsync(userId, eventId);
 
                 if (Event == null) throw new Exception("Event not found.");
 

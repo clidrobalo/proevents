@@ -7,9 +7,9 @@ namespace ProEvents.Application.Interfaces
     {
         Task<EventDTO> AddEvent(EventDTO model);
         Task<EventDTO> UpdateEvent(EventDTO model);
-        Task<bool> DeleteEvent(int eventId);
-        Task<EventDTO[]> GetAllEventsAsync(bool includeSpeakers = false);
-        Task<EventDTO> GetEventByIdAsync(int eventId, bool includeSpeakers = false);
-        Task<EventDTO[]> GetAllEventsByThemeAsync(string theme, bool includeSpeakers = false);
+        Task<bool> DeleteEvent(int userId, int eventId);
+        Task<EventDTO[]> GetAllEventsAsync(int userId, bool includeSpeakers = false);
+        Task<EventDTO> GetEventByIdAsync(int userId, int eventId, bool includeSpeakers = false);
+        Task<EventDTO[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers = false);
     }
 }
