@@ -11,7 +11,7 @@ namespace ProEvents.Domain.Identity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Password { get; set; }
+        //public string Password { get; set; }
         public Title Title { get; set; }
         public string ImageURL { get; set; }
         public string description { get; set; }

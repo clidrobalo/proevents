@@ -104,5 +104,32 @@ namespace ProEvents.API.Controllers
                 $"Error in Save User. Error: {e.Message}");
             }
         }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> Update(UserDetailDTO userDetailDTO)
+        {
+            try
+            {
+                var user = await _userService.getUserByUsenameAsync(userDetailDTO.Username);
+
+                if (user is null)
+                {
+                    return BadRequest("Invalid User.");
+                }
+
+                user = await _userService.UpdateUser(userDetailDTO);
+
+                if (user == null)
+                {
+                    return NoContent();
+                }
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Error in Update User. Error: {e.Message}");
+            }
+        }
     }
 }
