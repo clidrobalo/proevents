@@ -1,16 +1,22 @@
 using System;
 using System.IO;
+using System.Text;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProEvents.Application.Impl;
 using ProEvents.Application.Interfaces;
+using ProEvents.Domain.Identity;
 using ProEvents.Repository.Contexts;
 using ProEvents.Repository.Impl;
 using ProEvents.Repository.Interfaces;
@@ -34,9 +40,37 @@ namespace ProEvents.API
             );
 
             services.AddControllers()
+            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
             .AddNewtonsoftJson(
                 x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+
+            services.AddIdentityCore<User>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+            .AddRoles<Role>()
+            .AddRoleManager<RoleManager<Role>>()
+            .AddSignInManager<SignInManager<User>>()
+            .AddRoleValidator<RoleValidator<Role>>()
+            .AddEntityFrameworkStores<ProEventsContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"])),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             // To find ProEventsProfile of Mapper
             // Inject Possibility to work with AutoMapper
@@ -44,11 +78,17 @@ namespace ProEvents.API
 
             // Enable Inject  
             services.AddScoped<IEventService, EventService>();
-            services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<IEventRepository, EventRepository>();
+
+            services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<ILoteRepository, LoteRepository>();
+
             services.AddScoped<ISpeakerRepository, SpeakerRepository>();
             services.AddScoped<IGenericRepository, GenericRepository>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddCors();
             services.AddSwaggerGen(c =>
