@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProEvents.API.Extentions;
 using ProEvents.Application.Dtos;
 using ProEvents.Application.Interfaces;
 
@@ -24,13 +26,13 @@ namespace ProEvents.API.Controllers
             _tokenService = tokenService;
         }
 
-        //[AllowAnonymous] // Allow get without authentication
-        [HttpGet("username/{username}")]
-        public async Task<IActionResult> GetUser(string username)
+        [HttpGet("get")]
+        public async Task<IActionResult> GetUser()
         {
             try
             {
-                var user = await _userService.getUserByUsenameAsync(username);
+                var userName = User.GetUserName();
+                var user = await _userService.getUserByUsenameAsync(userName);
 
                 return Ok(user);
             }

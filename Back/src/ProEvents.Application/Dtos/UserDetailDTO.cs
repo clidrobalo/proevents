@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace ProEvents.Application.Dtos
 {
     public class UserDetailDTO
