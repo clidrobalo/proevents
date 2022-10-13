@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -33,50 +33,53 @@ import { EventListComponent } from './components/events/event-list/event-list.co
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 // Language of the calendar picker
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EventsComponent,
-    EventDetailComponent,
-    EventListComponent,
-    SpeakersComponent,
-    NavComponent,
-    TitleComponent,
-    DashboardComponent,
-    ContactsComponent,
-    ProfileComponent,
-    UserComponent,
-    LoginComponent,
-    RegistrationComponent,
-    DateTimeFormatPipe,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    CollapseModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TooltipModule,
-    BsDropdownModule,
-    ModalModule.forRoot(),
-    NgxSpinnerModule,
-    BsDatepickerModule,
-    NgxCurrencyModule,
-    ToastrModule.forRoot({
-      timeOut: 1000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      progressBar: true
-    }),
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        AppComponent,
+        EventsComponent,
+        EventDetailComponent,
+        EventListComponent,
+        SpeakersComponent,
+        NavComponent,
+        TitleComponent,
+        DashboardComponent,
+        ContactsComponent,
+        ProfileComponent,
+        UserComponent,
+        LoginComponent,
+        RegistrationComponent,
+        DateTimeFormatPipe,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        CollapseModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TooltipModule,
+        BsDropdownModule,
+        ModalModule.forRoot(),
+        NgxSpinnerModule,
+        BsDatepickerModule,
+        NgxCurrencyModule,
+        ToastrModule.forRoot({
+            timeOut: 1000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true,
+            progressBar: true
+        }),
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    ],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

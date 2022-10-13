@@ -9,19 +9,19 @@
   <div class="col-md-6">
     <h2 class="text-center mt-5">Registration</h2>
 
-    <form class="p-1 mt-5" [formGroup]="registationForm">
+    <form class="p-1 mt-5" [formGroup]="registationForm" (ngSubmit)="register()">
       <div class="pb-2 d-block d-md-none">
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label>First Name</label>
-          <input type="text" class="form-control" formControlName="fistName"
-            [ngClass]="{'is-invalid': form.fistName.errors && form.fistName.touched }"
+          <input type="text" class="form-control" formControlName="firstName"
+            [ngClass]="{'is-invalid': form.firstName.errors && form.firstName.touched }"
             placeholder="Fill your first name" />
-          <div *ngIf="form.fistName.hasError('required')" class="invalid-feedback">
+          <div *ngIf="form.firstName.hasError('required')" class="invalid-feedback">
             Fist Name is mandatory.
           </div>
-          <div *ngIf="form.fistName.hasError('minlength')" class="invalid-feedback">
+          <div *ngIf="form.firstName.hasError('minlength')" class="invalid-feedback">
             Fist Name less than
             4 caracters.
           </div>
@@ -99,7 +99,7 @@
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5">
+          <button class="btn btn-lg btn-success btn-block px-5" type="submit">
             Register
           </button>
         </div>
