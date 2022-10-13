@@ -48,6 +48,11 @@ namespace ProEvents.API.Controllers
         {
             try
             {
+                if (userDTO is null || userDTO.UserName is null)
+                {
+                    return BadRequest("Invalid Request.");
+                }
+
                 if (await _userService.UserExists(userDTO.UserName))
                 {
                     return BadRequest("User already exist.");
@@ -74,6 +79,11 @@ namespace ProEvents.API.Controllers
         {
             try
             {
+                if (userLoginDTO is null)
+                {
+                    return BadRequest("Invalid Request.");
+                }
+
                 var user = await _userService.getUserByUsenameAsync(userLoginDTO.UserName);
 
                 if (user == null)
@@ -110,6 +120,11 @@ namespace ProEvents.API.Controllers
         {
             try
             {
+                if (userDetailDTO is null)
+                {
+                    return BadRequest("Invalid Request.");
+                }
+
                 var user = await _userService.getUserByUsenameAsync(userDetailDTO.Username);
 
                 if (user is null)

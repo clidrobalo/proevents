@@ -46,6 +46,15 @@ export class UserService {
         return "";
     }
 
+    public getUsername(): string {
+        var user = localStorage.getItem("user");
+
+        if (user !== null) {
+            return JSON.parse(user).username;
+        }
+        return "";
+    }
+
     private setCurrentUser(user: User): void {
         localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);

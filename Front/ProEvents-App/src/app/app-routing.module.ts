@@ -10,34 +10,45 @@ import { SpeakersComponent } from './components/speakers/speakers.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { UserComponent } from './components/user/user.component';
+import { AuthGuard } from './guard/auth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  {
-    path: 'user', component: UserComponent,
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'registration', component: RegistrationComponent },
-      { path: 'profile', component: ProfileComponent },
-    ]
-  },
-  {
-    path: 'events', component: EventsComponent,
-    children: [
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'detail', component: EventDetailComponent },
-      { path: 'detail/:id', component: EventDetailComponent },
-      { path: 'list', component: EventListComponent }
-    ]
-  },
-  { path: 'speakers', component: SpeakersComponent },
-  { path: 'contacts', component: ContactsComponent },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    {
+        path: 'user', component: UserComponent,
+        children: [
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: 'login', component: LoginComponent },
+            { path: 'registration', component: RegistrationComponent }
+        ]
+    },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        children: [
+            { path: 'user/profile', component: ProfileComponent },
+            {
+                path: 'events', component: EventsComponent,
+                children: [
+                    { path: '', redirectTo: 'list', pathMatch: 'full' },
+                    { path: 'detail', component: EventDetailComponent },
+                    { path: 'detail/:id', component: EventDetailComponent },
+                    { path: 'list', component: EventListComponent }
+                ]
+            },
+            { path: 'speakers', component: SpeakersComponent },
+            { path: 'contacts', component: ContactsComponent },
+            { path: 'dashboard', component: DashboardComponent },
+        ]
+    },
+    { path: '**', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

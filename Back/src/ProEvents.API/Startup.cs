@@ -136,6 +136,12 @@ namespace ProEvents.API
                 });
             }
 
+            app.UseCors(access =>
+                           access.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowAnyOrigin()
+                       );
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -143,11 +149,7 @@ namespace ProEvents.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(access =>
-                access.AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowAnyOrigin()
-            );
+
 
             app.UseStaticFiles(new StaticFileOptions()
             {
