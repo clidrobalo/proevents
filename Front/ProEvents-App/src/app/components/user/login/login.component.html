@@ -2,20 +2,24 @@
 
   <div class="mx-auto text-center shadow-sm bg-white rounded p-5 my-5">
 
-    <form class="form-signin">
+    <form #loginForm="ngForm" class="form-signin" (ngSubmit)="login()">
       <i class="fa fa-users mb-2"></i>
       <h1 class="h3 mb-3 font-weight-normal">Login</h1>
       <label for="username" class="sr-only">User</label>
-      <input type="email" id="username" class="form-control" placeholder="Username" name="username" required>
+      <input [(ngModel)]="model.userName" type="email" id="username" class="form-control" placeholder="Username"
+        name="username" required>
 
       <label for="password" class="sr-only">Password</label>
-      <input type="password" id="password" class="form-control mt-3" placeholder="Password" name="password" required>
+      <input [(ngModel)]="model.password" type="password" id="password" class="form-control mt-3" placeholder="Password"
+        name="password" required>
 
-      <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" routerLink="dashboard">Login</button>
+      <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" [disabled]="loginForm.invalid">Login</button>
+
+      <a class="btn btn-sm btn-link btn-block">Reset password</a>
       <p class="mt-4 mb-2 text-muted">I don't have a registration! Please register bellow</p>
-      <a class="btn btn-lg btn-link btn-block" routerLink="/user/registration">Create a new Registration</a>
+      <button class="btn btn-lg btn-block btn-secondary" routerLink="/user/registration">Create an account</button>
     </form>
-
   </div>
-
 </div>
+
+<footer class="footer text-center bg-white shadow-lg">Todos os direitos reservados - clidsoftware</footer>

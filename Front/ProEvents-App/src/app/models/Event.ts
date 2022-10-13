@@ -14,5 +14,6 @@ export interface Event {
   lotes: Lote[];
   socialMedias: SocialMedia[];
   eventSpeakers: EventSpeaker[];
+  userId: number;
 }
 

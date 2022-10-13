@@ -32,46 +32,57 @@ export class EventsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    /** spinner starts on init */
-    this.spinner.show();
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-    }, 1000);
 
-    this.getEvents();
   }
 
-  public get filterList(): string {
-    return this._filter;
-  }
+  // public get filterList(): string {
+  //   return this._filter;
+  // }
 
-  public set filterList(value: string) {
-    this._filter = value;
-    this.filteredEvents = this.filterList ? this.filterEvents(this._filter) : this.events;
-  }
+  // public set filterList(value: string) {
+  //   this._filter = value;
+  //   this.filteredEvents = this.filterList ? this.filterEvents(this._filter) : this.events;
+  // }
 
-  private filterEvents(value: string): Event[] {
-    value = value.toLowerCase();
-    return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
-      || event.place.toLowerCase().indexOf(value) !== -1);
-  }
+  // private filterEvents(value: string): Event[] {
+  //   value = value.toLowerCase();
+  //   return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
+  //     || event.place.toLowerCase().indexOf(value) !== -1);
+  // }
 
-  private getEvents(): void {
-    this._eventService.getEvents().subscribe(
-      {
-        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
-        error: (error) => {
-          this.spinner.hide();
-          this.toastr.success('Error in loading events.', 'Failed');
-        },
-        complete: () => { this.spinner.hide(); }
-      }
-    )
-  }
+  // private getEvents(): void {
+  //   this._eventService.getEvents().subscribe(
+  //     {
+  //       next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
+  //       error: (error) => {
+  //         this.spinner.hide();
+  //         this.toastr.error('Error in loading events.', 'Failed');
+  //       },
+  //       complete: () => { this.spinner.hide(); }
+  //     }
+  //   )
+  // }
 
-  public showImages(): void {
-    this.isToShowImages = !this.isToShowImages;
-  }
+  // public showImages(): void {
+  //   this.isToShowImages = !this.isToShowImages;
+  // }
+
+
+
+
+  // public openModal(template: TemplateRef<any>): void {
+  //   this._modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  // }
+
+  // confirmDelete(): void {
+  //   this._modalRef?.hide();
+  //   this.toastr.success('Event deleted successful.', 'Success');
+  // }
+
+  // declineDelete(): void {
+  //   this._modalRef?.hide();
+  // }
+
 
   /**
    * Show Button 'List Events' just when url not contain 'events/list'
@@ -79,19 +90,4 @@ export class EventsComponent implements OnInit {
   public isShowListBtn(): boolean {
     return !this.route.url.toLowerCase().includes('events/list');
   }
-
-  // MODAL - START
-  public openModal(template: TemplateRef<any>): void {
-    this._modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-
-  confirmDelete(): void {
-    this._modalRef?.hide();
-    this.toastr.success('Event deleted successful.', 'Success');
-  }
-
-  declineDelete(): void {
-    this._modalRef?.hide();
-  }
-  // MODAL - END
 }

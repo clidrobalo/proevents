@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { catchError, Observable, take } from 'rxjs';
@@ -9,11 +9,12 @@ import { Event } from '../models/Event';
 })
 export class EventService {
   private _baseURL = environment.apiURL + '/api/event';
+  private tokenHeader = new HttpHeaders({ 'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwidW5pcXVlX25hbWUiOiJoaWxsYXJ5LmRpYW5lIiwibmJmIjoxNjY1NjY2MTIzLCJleHAiOjE2NjU3NTI1MjMsImlhdCI6MTY2NTY2NjEyM30.7DoCdeqqqjTzbhLW29Yj-O5Pkf-BW_dg4J57vUp_Pr6ijEVLSiXTxg5SbDor1yDId8nafliLdz1VGlKm6Fimeg' });
 
   constructor(private _http: HttpClient) { }
 
   public getEvents(): Observable<Event[]> {
-    return this._http.get<Event[]>(this._baseURL).pipe(take(1));
+    return this._http.get<Event[]>(`${this._baseURL}/id/${2}`, { headers: this.tokenHeader }).pipe(take(1));
   }
 
   public getEventById(id: number): Observable<Event> {

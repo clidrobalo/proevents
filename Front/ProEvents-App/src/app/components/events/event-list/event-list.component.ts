@@ -112,10 +112,10 @@ export class EventListComponent implements OnInit {
   private getEvents(): void {
     this._eventService.getEvents().subscribe(
       {
-        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp },
+        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp; },
         error: (error) => {
           this.spinner.hide();
-          this.toastr.success('Error in loading events.', 'Failed');
+          this.toastr.error('Error in loading events.', 'Failed');
         },
         complete: () => { this.spinner.hide(); }
       }

@@ -74,7 +74,7 @@ namespace ProEvents.API.Controllers
         {
             try
             {
-                var user = await _userService.getUserByUsenameAsync(userLoginDTO.Username);
+                var user = await _userService.getUserByUsenameAsync(userLoginDTO.UserName);
 
                 if (user == null)
                 {
@@ -94,7 +94,7 @@ namespace ProEvents.API.Controllers
                         username = user.Username,
                         firstname = user.FirstName,
                         lastname = user.lastName,
-                        token = _tokenService.CreateToken(user)
+                        token = _tokenService.CreateToken(user).Result
                     }
                 );
             }
