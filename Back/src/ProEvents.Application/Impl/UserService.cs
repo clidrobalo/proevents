@@ -32,7 +32,7 @@ namespace ProEvents.Application.Impl
             try
             {
                 var user = await _userManager.Users
-                .SingleOrDefaultAsync(user => user.UserName.Equals(userDetailDTO.Username.ToLower()));
+                .SingleOrDefaultAsync(user => user.UserName.Equals(userDetailDTO.UserName.ToLower()));
 
                 return await _signInManager.CheckPasswordSignInAsync(user, password, false);
             }
@@ -84,7 +84,7 @@ namespace ProEvents.Application.Impl
         {
             try
             {
-                var user = await _userRepository.GetUserByUsernameAsync(userDetailDTO.Username);
+                var user = await _userRepository.GetUserByUsernameAsync(userDetailDTO.UserName);
                 if (user is not null)
                 {
                     _mapper.Map(userDetailDTO, user);
@@ -109,13 +109,13 @@ namespace ProEvents.Application.Impl
         {
             try
             {
-                var user = await _userRepository.GetUserByUsernameAsync(userDetailDTO.Username);
+                var user = await _userRepository.GetUserByUsernameAsync(userDetailDTO.UserName);
                 if (user is not null)
                 {
                     _mapper.Map(userDetailDTO, user);
 
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var result = await _userManager.ResetPasswordAsync(user, token, userDetailDTO.Password);
+                    await _userManager.ResetPasswordAsync(user, token, userDetailDTO.Password);
 
                     _userRepository.Update(user);
 

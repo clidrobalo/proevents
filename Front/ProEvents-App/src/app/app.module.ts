@@ -34,6 +34,7 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { HomeComponent } from './components/home/home.component';
 
 // Language of the calendar picker
 defineLocale('pt-br', ptBrLocale);
@@ -54,6 +55,7 @@ defineLocale('pt-br', ptBrLocale);
         LoginComponent,
         RegistrationComponent,
         DateTimeFormatPipe,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

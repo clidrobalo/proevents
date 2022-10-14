@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '@app/models/user/Login';
 import { User } from '@app/models/user/User';
+import { UserDetail } from '@app/models/user/UserDetail';
 import { environment } from '@environments/environment';
 import { stringify } from 'querystring';
 import { map, Observable, ReplaySubject, take } from 'rxjs';
@@ -29,6 +30,18 @@ export class UserService {
                         this.setCurrentUser(user);
                     }
                 }));
+    }
+
+    public getUser(): Observable<UserDetail> {
+        return this._http.get<UserDetail>(this._baseURL).pipe(take(1));
+    }
+
+    public update(userDetail: UserDetail): Observable<UserDetail> {
+        return this._http.put<UserDetail>(`${this._baseURL}/update`, userDetail).pipe(take(1));
+    }
+
+    public resetPassword(userDetail: UserDetail): Observable<UserDetail> {
+        return this._http.put<UserDetail>(`${this._baseURL}/reset-password`, userDetail).pipe(take(1));
     }
 
     public logout(): void {

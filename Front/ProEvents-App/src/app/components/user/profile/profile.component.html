@@ -1,166 +1,172 @@
-<app-title [title]="title" [subTitle]="'User Profile'" [iconClass]="'fa fa-duotone fa-user'"></app-title>
+<app-title [title]="title" [subTitle]="'User Profile'" [iconClass]="'fa fa-duotone fa-address-card'"></app-title>
 
 <div class="card shadow-sm">
-  <form [formGroup]="profileForm">
-    <div class="row p-3">
-      <div class="col-lg-3 pt-1">
-        <div class="card mb-3">
-          <div class="card-header"></div>
-          <div class="d-flex align-self-center pt-3">
-            <a>
-              <img
-                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
-                name="aboutme" width="120" height="120" class="rounded-circle">
-            </a>
-          </div>
-          <div class="card-body">
-            <div class="h4 text-center mb-3">@UserName</div>
-            <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
-            <div class="h7">
-              Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-              etc.
-            </div>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col-6 text-center border-right">
-                  <div class="h5">1342</div>
-                  <div class="h6 text-muted">Eventos Ministrados</div>
+    <form [formGroup]="profileForm">
+        <div class="row p-3">
+            <div class="col-lg-3 pt-1">
+                <div class="card mb-3">
+                    <div class="card-header"></div>
+                    <div class="d-flex align-self-center pt-3">
+                        <a>
+                            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+                                name="aboutme" width="120" height="120" class="rounded-circle">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="h4 text-center mb-3">@{{form.userName.value}}</div>
+                        <div class="h7 text-bold pb-1"><b>Nome: </b>{{ form.firstName.value + " " + form.lastName.value
+                            }}</div>
+                        <div class="h7">
+                            {{ form.description.value }}
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6 text-center border-right">
+                                    <div class="h5">0</div>
+                                    <div class="h6 text-muted">Created Events</div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <div class="h5">0</div>
+                                    <div class="h6 text-muted">Speaker Events</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="card-footer"></div>
                 </div>
-                <div class="col-6 text-center">
-                  <div class="h5">1342</div>
-                  <div class="h6 text-muted">Eventos Participados</div>
+            </div>
+            <div class="col-lg-9">
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <h3 class="border-bottom">Detalhe Perfil</h3>
+                    </div>
+                    <div class="form-group col">
+                        <label>Título</label>
+                        <select class="form-control" formControlName="title"
+                            [ngClass]="{'is-invalid': form.title.errors && form.title.touched }">
+                            <option value="" disabled>Select one Title</option>
+                            <option value="NotInformed">Empty</option>
+                            <option value="Tech">Tech</option>
+                            <option value="Bracharel">Bracharel</option>
+                            <option value="Specialist">Specialist</option>
+                            <option value="PosGraduate">Pos Graduate</option>
+                            <option value="Master">Master</option>
+                            <option value="Phd">Phd</option>
+                            <option value="PosPhd">Pos Phd</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label>Primeiro Nome</label>
+                        <input type="text" class="form-control" formControlName="firstName"
+                            [ngClass]="{'is-invalid': form.firstName.errors && form.firstName.touched }"
+                            placeholder="Fill your first name" />
+                        <div *ngIf="form.firstName.hasError('required')" class="invalid-feedback">
+                            Fist Name is mandatory.
+                        </div>
+                        <div *ngIf="form.firstName.hasError('minlength')" class="invalid-feedback">
+                            Fist Name less than
+                            4 caracters.
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label>Último nome</label>
+                        <input type="text" class="form-control" formControlName="lastName"
+                            [ngClass]="{'is-invalid': form.lastName.errors && form.lastName.touched }"
+                            placeholder="Fill your last name" />
+                        <div *ngIf="form.lastName.hasError('required')" class="invalid-feedback">
+                            Last Name is mandatory.
+                        </div>
+                        <div *ngIf="form.lastName.hasError('minlength')" class="invalid-feedback">
+                            Last Name less than
+                            4 caracters.
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-          <div class="card-footer"></div>
+                <div class="form-row">
+                    <div class="form-group col-sm-5">
+                        <label>E-mail</label>
+                        <input type="text" class="form-control" formControlName="email"
+                            [ngClass]="{'is-invalid': form.email.errors && form.email.touched }"
+                            placeholder="Fill your email" />
+                        <div *ngIf="form.email.hasError('required')" class="invalid-feedback">
+                            Email is mandatory.
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Telefone</label>
+                        <input type="text" class="form-control" formControlName="phoneNumber"
+                            [ngClass]="{'is-invalid': form.phoneNumber.errors && form.phoneNumber.touched }"
+                            placeholder="Fill your phone" />
+                        <div *ngIf="form.phoneNumber.hasError('required')" class="invalid-feedback">
+                            Phone is mandatory.
+                        </div>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label>Função</label>
+                        <select class="form-control" formControlName="function" [ngClass]="{'is-invalid': form.function.errors &&
+              form.function.touched }">
+                            <option value="" disabled>Select one function</option>
+                            <option value="NotInformed">Empty</option>
+                            <option value="Participant">Participant</option>
+                            <option value="Speaker">Speaker</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Descrição</label>
+                        <input type="text" class="form-control" formControlName="description"
+                            [ngClass]="{'is-invalid': form.description.errors && form.description.touched }"
+                            placeholder="Fill some description" />
+                    </div>
+                </div>
+                <div>
+                    <h3 class="pt-3 border-bottom">Mudar Senha</h3>
+                    <p>Caso mude de senha, preencha os campos abaixo:</p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
+                        <label>Senha</label>
+                        <input type="password" class="form-control" formControlName="password"
+                            [ngClass]="{'is-invalid': form.password.errors && form.password.touched }"
+                            placeholder="Fill your password" />
+                        <div *ngIf="form.password.hasError('required')" class="invalid-feedback">
+                            Password is mandatory.
+                        </div>
+                        <div *ngIf="form.password.hasError('minlength')" class="invalid-feedback">
+                            Password less than
+                            4 caracters.
+                        </div>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label>Confirmar Senha</label>
+                        <input type="password" class="form-control" formControlName="passwordConfirmed"
+                            [ngClass]="{'is-invalid': form.passwordConfirmed.errors && form.passwordConfirmed.touched }"
+                            placeholder="Confirm your password" />
+                        <div *ngIf="form.passwordConfirmed.hasError('required')" class="invalid-feedback">
+                            Confirmation Password is mandatory.
+                        </div>
+                        <div *ngIf="form.passwordConfirmed.hasError('mustMatch')" class="invalid-feedback">
+                            Password not match.
+                        </div>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label>Reset</label>
+                        <button class="btn btn-primary form-control" (click)="resetPassword()">Reset</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-lg-9">
-        <div class="form-row">
-          <div class="form-group col-12">
-            <h3 class="border-bottom">Detalhe Perfil</h3>
-          </div>
-          <div class="form-group col">
-            <label>Título</label>
-            <select class="form-control" formControlName="title"
-              [ngClass]="{'is-invalid': form.title.errors && form.title.touched }">
-              <option value="" disabled>Select one Title</option>
-              <option value="0">Não Quero</option>
-              <option value="Senhorita">Tecnólogo(a)</option>
-              <option value="Senhorita">Bacharel</option>
-              <option value="Senhorita">Especialista</option>
-              <option value="Senhorita">Pós Graduado(a)</option>
-              <option value="Senhorita">Mestre</option>
-              <option value="Senhorita">Doutor(a)</option>
-              <option value="Senhorita">Pós Doc</option>
-            </select>
-          </div>
-          <div class="form-group col-sm-5">
-            <label>Primeiro Nome</label>
-            <input type="text" class="form-control" formControlName="fistName"
-              [ngClass]="{'is-invalid': form.fistName.errors && form.fistName.touched }"
-              placeholder="Fill your first name" />
-            <div *ngIf="form.fistName.hasError('required')" class="invalid-feedback">
-              Fist Name is mandatory.
+        <div class="card-footer">
+            <div class="d-flex">
+                <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm($event)">
+                    Cancelar Alteração
+                </button>
+                <button class="btn btn-success" (click)="updateUserDetail()">
+                    <span class="mr-1"></span>
+                    Salvar Alteração
+                </button>
             </div>
-            <div *ngIf="form.fistName.hasError('minlength')" class="invalid-feedback">
-              Fist Name less than
-              4 caracters.
-            </div>
-          </div>
-          <div class="form-group col-sm-5">
-            <label>Último nome</label>
-            <input type="text" class="form-control" formControlName="lastName"
-              [ngClass]="{'is-invalid': form.lastName.errors && form.lastName.touched }"
-              placeholder="Fill your last name" />
-            <div *ngIf="form.lastName.hasError('required')" class="invalid-feedback">
-              Last Name is mandatory.
-            </div>
-            <div *ngIf="form.lastName.hasError('minlength')" class="invalid-feedback">
-              Last Name less than
-              4 caracters.
-            </div>
-          </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-sm-5">
-            <label>E-mail</label>
-            <input type="text" class="form-control" formControlName="email"
-              [ngClass]="{'is-invalid': form.email.errors && form.email.touched }" placeholder="Fill your email" />
-            <div *ngIf="form.email.hasError('required')" class="invalid-feedback">
-              Email is mandatory.
-            </div>
-          </div>
-          <div class="form-group col-sm-4">
-            <label>Telefone</label>
-            <input type="text" class="form-control" formControlName="phone"
-              [ngClass]="{'is-invalid': form.phone.errors && form.phone.touched }" placeholder="Fill your phone" />
-            <div *ngIf="form.phone.hasError('required')" class="invalid-feedback">
-              Phone is mandatory.
-            </div>
-          </div>
-          <div class="form-group col-sm">
-            <label>Função</label>
-            <select class="form-control" formControlName="role" [ngClass]="{'is-invalid': form.role.errors &&
-              form.role.touched }">
-              <option value="" disabled>Select one Role</option>
-              <option value="Participante">Participante</option>
-              <option value="Palestrante">Palestrante</option>
-            </select>
-          </div>
-          <form-group class="col-12">
-            <label>Descrição</label>
-            <input type="text" class="form-control" formControlName="description"
-              [ngClass]="{'is-invalid': form.description.errors && form.description.touched }"
-              placeholder="Fill some description" />
-          </form-group>
-        </div>
-        <div>
-          <h3 class="pt-3 border-bottom">Mudar Senha</h3>
-          <p>Caso mude de senha, preencha os campos abaixo:</p>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-sm">
-            <label>Senha</label>
-            <input type="password" class="form-control" formControlName="password"
-              [ngClass]="{'is-invalid': form.password.errors && form.password.touched }"
-              placeholder="Fill your password" />
-            <div *ngIf="form.password.hasError('required')" class="invalid-feedback">
-              Password is mandatory.
-            </div>
-            <div *ngIf="form.password.hasError('minlength')" class="invalid-feedback">
-              Password less than
-              4 caracters.
-            </div>
-          </div>
-          <div class="form-group col-sm">
-            <label>Confirmar Senha</label>
-            <input type="password" class="form-control" formControlName="passwordConfirmed"
-              [ngClass]="{'is-invalid': form.passwordConfirmed.errors && form.passwordConfirmed.touched }"
-              placeholder="Confirm your password" />
-            <div *ngIf="form.passwordConfirmed.hasError('required')" class="invalid-feedback">
-              Confirmation Password is mandatory.
-            </div>
-            <div *ngIf="form.passwordConfirmed.hasError('mustMatch')" class="invalid-feedback">
-              Password not match.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm($event)">
-          Cancelar Alteração
-        </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
-          <span class="mr-1"></span>
-          Salvar Alteração
-        </button>
-      </div>
-    </div>
-  </form>
+    </form>
 </div>

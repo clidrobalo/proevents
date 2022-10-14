@@ -11,5 +11,6 @@ namespace ProEvents.Application.Interfaces
         Task<SignInResult> CheckUserPasswordAsync(UserDetailDTO userDetailDTO, string password);
         Task<UserDTO> CreateUserAsync(UserDTO userDTO);
         Task<UserDetailDTO> UpdateUser(UserDetailDTO userDetailDTO);
+        Task<UserDetailDTO> ResetPassword(UserDetailDTO userDetailDTO);
     }
 }

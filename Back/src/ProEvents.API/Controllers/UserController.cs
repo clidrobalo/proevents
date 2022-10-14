@@ -26,7 +26,7 @@ namespace ProEvents.API.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpGet("get")]
+        [HttpGet]
         public async Task<IActionResult> GetUser()
         {
             try
@@ -101,9 +101,9 @@ namespace ProEvents.API.Controllers
                 return Ok(
                     new
                     {
-                        username = user.Username,
+                        username = user.UserName,
                         firstname = user.FirstName,
-                        lastname = user.lastName,
+                        lastname = user.LastName,
                         token = _tokenService.CreateToken(user).Result
                     }
                 );
@@ -125,14 +125,47 @@ namespace ProEvents.API.Controllers
                     return BadRequest("Invalid Request.");
                 }
 
-                var user = await _userService.getUserByUsenameAsync(userDetailDTO.Username);
-
-                if (user is null)
+                if (userDetailDTO.UserName != User.GetUserName() || User.GetUserId() != userDetailDTO.Id)
                 {
-                    return BadRequest("Invalid User.");
+                    return Unauthorized("Invalid User.");
                 }
 
-                user = await _userService.UpdateUser(userDetailDTO);
+                var user = await _userService.UpdateUser(userDetailDTO);
+
+                if (user == null)
+                {
+                    return NoContent();
+                }
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Error in Update User. Error: {e.Message}");
+            }
+        }
+
+        [HttpPut("reset-password")]
+        public async Task<IActionResult> ResetPassword(UserDetailDTO userDetailDTO)
+        {
+            try
+            {
+                if (userDetailDTO is null || string.IsNullOrEmpty(userDetailDTO.Password))
+                {
+                    return BadRequest("Invalid Request.");
+                }
+
+                if (userDetailDTO.UserName != User.GetUserName() || User.GetUserId() != userDetailDTO.Id)
+                {
+                    return Unauthorized("Invalid User.");
+                }
+
+                if (!userDetailDTO.Password.Equals(userDetailDTO.PasswordConfirmed))
+                {
+                    return BadRequest("Password not match.");
+                }
+
+                var user = await _userService.ResetPassword(userDetailDTO);
 
                 if (user == null)
                 {
