@@ -2,6 +2,7 @@ using AutoMapper;
 using ProEvents.Application.Dtos;
 using ProEvents.Domain;
 using ProEvents.Domain.Identity;
+using ProEvents.Repository.Models;
 
 namespace ProEvents.Application.Helpers
 {

@@ -8,7 +8,7 @@ import { Event } from '../models/Event';
     providedIn: 'root'
 })
 export class EventService {
-    private _baseURL = environment.apiURL + '/api/event';
+    private _baseURL = environment.apiURL + '/api/events';
 
     constructor(private _http: HttpClient) { }
 
@@ -17,11 +17,7 @@ export class EventService {
     }
 
     public getEventById(id: number): Observable<Event> {
-        return this._http.get<Event>(`${this._baseURL}/id/${id}`).pipe(take(1));
-    }
-
-    public getEventsByTheme(theme: string): Observable<Event[]> {
-        return this._http.get<Event[]>(`${this._baseURL}/theme/${theme}`).pipe(take(1));
+        return this._http.get<Event>(`${this._baseURL}/${id}`).pipe(take(1));
     }
 
     public addEvent(event: Event): Observable<Event> {

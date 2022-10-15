@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using ProEvents.Domain;
+using ProEvents.Repository.Models;
 
 namespace ProEvents.Repository.Interfaces
 {
     public interface IEventRepository
     {
-        Task<Event[]> GetAllEventsAsync(int userId, bool includeSpeakers = false);
+        Task<PageList<Event>> GetAllEventsAsync(int userId, PageParams pageParams, bool includeSpeakers = false);
         Task<Event> GetEventByIdAsync(int userId, int eventId, bool includeSpeakers = false);
-        Task<Event[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers = false);
     }
 }

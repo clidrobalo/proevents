@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProEvents.Domain;
 using ProEvents.Repository.Contexts;
 using ProEvents.Repository.Interfaces;
+using ProEvents.Repository.Models;
 
 namespace ProEvents.Repository.Impl
 {
@@ -15,7 +16,7 @@ namespace ProEvents.Repository.Impl
             this._proEventsContext = proEventsContext;
         }
 
-        public async Task<Event[]> GetAllEventsAsync(int userId, bool includeSpeakers)
+        public async Task<PageList<Event>> GetAllEventsAsync(int userId, PageParams pageParams, bool includeSpeakers)
         {
             IQueryable<Event> query = _proEventsContext.Events
             .Include(e => e.Lotes)
@@ -27,9 +28,9 @@ namespace ProEvents.Repository.Impl
                 .ThenInclude(ev => ev.Speaker);
             }
 
-            query = query.AsNoTracking().Where(e => e.UserId == userId).OrderBy(e => e.Id);
+            query = query.AsNoTracking().Where(e => e.Theme.ToLower().Contains(pageParams.Term.ToLower()) && e.UserId == userId).OrderBy(e => e.Id);
 
-            return await query.ToArrayAsync();
+            return await PageList<Event>.CreateAsync(query, pageParams.PageNumber, pageParams.pageSize);
         }
         public async Task<Event> GetEventByIdAsync(int userId, int eventId, bool includeSpeakers)
         {
@@ -46,23 +47,6 @@ namespace ProEvents.Repository.Impl
             query = query.AsNoTracking().Where(e => e.Id == eventId && e.UserId == userId);
 
             return await query.FirstOrDefaultAsync();
-        }
-
-        public async Task<Event[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers)
-        {
-            IQueryable<Event> query = _proEventsContext.Events
-             .Include(e => e.Lotes)
-             .Include(e => e.SocialMedias);
-
-            if (includeSpeakers)
-            {
-                query = query.Include(e => e.EventSpeakers)
-                .ThenInclude(ev => ev.Speaker);
-            }
-
-            query = query.AsNoTracking().OrderBy(e => e.Id).Where(e => e.Theme.ToLower().Contains(theme.ToLower()) && e.UserId == userId);
-
-            return await query.ToArrayAsync();
         }
     }
 }

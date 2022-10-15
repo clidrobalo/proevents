@@ -78,7 +78,7 @@ namespace ProEvents.API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Enable Inject  
-            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventsService, EventsService>();
             services.AddScoped<IEventRepository, EventRepository>();
 
             services.AddScoped<ILoteService, LoteService>();

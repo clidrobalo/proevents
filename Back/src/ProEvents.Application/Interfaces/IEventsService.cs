@@ -1,15 +1,15 @@
 using System.Threading.Tasks;
 using ProEvents.Application.Dtos;
+using ProEvents.Repository.Models;
 
 namespace ProEvents.Application.Interfaces
 {
-    public interface IEventService
+    public interface IEventsService
     {
         Task<EventDTO> AddEvent(EventDTO model);
         Task<EventDTO> UpdateEvent(EventDTO model);
         Task<bool> DeleteEvent(int userId, int eventId);
-        Task<EventDTO[]> GetAllEventsAsync(int userId, bool includeSpeakers = false);
+        Task<PageList<EventDTO>> GetAllEventsAsync(int userId, PageParams pageParams, bool includeSpeakers = false);
         Task<EventDTO> GetEventByIdAsync(int userId, int eventId, bool includeSpeakers = false);
-        Task<EventDTO[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers = false);
     }
 }

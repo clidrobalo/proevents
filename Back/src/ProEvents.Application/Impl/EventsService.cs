@@ -7,51 +7,40 @@ using ProEvents.Application.Dtos;
 using ProEvents.Application.Interfaces;
 using ProEvents.Domain;
 using ProEvents.Repository.Interfaces;
+using ProEvents.Repository.Models;
 
 namespace ProEvents.Application.Impl
 {
-    public class EventService : IEventService
+    public class EventsService : IEventsService
     {
         private readonly IGenericRepository _genericRepository;
         private readonly IEventRepository _eventRepository;
 
         private readonly IMapper _mapper;
 
-        public EventService(IEventRepository eventRepository, IGenericRepository genericRepository, IMapper mapper)
+        public EventsService(IEventRepository eventRepository, IGenericRepository genericRepository, IMapper mapper)
         {
             _genericRepository = genericRepository;
             _eventRepository = eventRepository;
             _mapper = mapper;
         }
 
-        public async Task<EventDTO[]> GetAllEventsAsync(int userId, bool includeSpeakers = false)
+        public async Task<PageList<EventDTO>> GetAllEventsAsync(int userId, PageParams pageParams, bool includeSpeakers = false)
         {
             try
             {
-                var Events = await _eventRepository.GetAllEventsAsync(userId, includeSpeakers);
+                var Events = await _eventRepository.GetAllEventsAsync(userId, pageParams, includeSpeakers);
 
                 if (Events != null)
                 {
-                    return _mapper.Map<EventDTO[]>(Events);
-                }
+                    var result = _mapper.Map<PageList<EventDTO>>(Events);
 
-                return null;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+                    result.CurrentPage = Events.CurrentPage;
+                    result.TotalPages = Events.TotalPages;
+                    result.TotalCount = Events.TotalCount;
+                    result.PageSize = Events.PageSize;
 
-        public async Task<EventDTO[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeakers = false)
-        {
-            try
-            {
-                var Events = await _eventRepository.GetAllEventsByThemeAsync(userId, theme, includeSpeakers);
-
-                if (Events != null)
-                {
-                    return _mapper.Map<EventDTO[]>(Events);
+                    return result;
                 }
 
                 return null;
