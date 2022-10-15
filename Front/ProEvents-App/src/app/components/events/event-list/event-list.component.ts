@@ -6,119 +6,158 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
+import { Pagination, PaginationResult } from '@app/models/Pagination';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-event-list',
-  templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss']
+    selector: 'app-event-list',
+    templateUrl: './event-list.component.html',
+    styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
 
-  public readonly title = "Events";
+    public readonly title = "Events";
 
-  public events: Event[] = [];
-  public filteredEvents: Event[] = [];
-  public widthImg: number = 150;
-  public marginImg = 2;
-  public isToShowImages: boolean = true;
-  public eventTheme = '';
-
-
-  private _filter: string = '';
-  private _modalRef?: BsModalRef;
-  private _eventId!: number;
+    public events: Event[] = [];
+    public filteredEvents: Event[] = [];
+    public widthImg: number = 150;
+    public marginImg = 2;
+    public isToShowImages: boolean = true;
+    public eventTheme = '';
+    public pagination = {} as Pagination;
+    public termoBuscaChanged: Subject<string> = new Subject<string>();
 
 
-  constructor(
-    private _eventService: EventService,
-    private modalService: BsModalService,
-    private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    private route: Router
-  ) { }
+    private _filter: string = '';
+    private _modalRef?: BsModalRef;
+    private _eventId!: number;
 
-  ngOnInit(): void {
-    /** spinner starts on init */
-    this.spinner.show();
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-    }, 1000);
 
-    this.getEvents();
-  }
+    constructor(
+        private _eventService: EventService,
+        private modalService: BsModalService,
+        private toastr: ToastrService,
+        private spinner: NgxSpinnerService,
+        private route: Router
+    ) { }
 
-  public get filterList(): string {
-    return this._filter;
-  }
+    ngOnInit(): void {
+        this.pagination = {
+            currentPage: 1,
+            itemsPerPage: 3,
+            totalItems: 1,
+        } as Pagination;
 
-  public set filterList(value: string) {
-    this._filter = value;
-    this.filteredEvents = this.filterList ? this.filterEvents(this._filter) : this.events;
-  }
+        this.getEvents();
+    }
 
-  public showImages(): void {
-    this.isToShowImages = !this.isToShowImages;
-  }
+    public get filterList(): string {
+        return this._filter;
+    }
 
-  // MODAL - START
-  public openModal(event: any, template: TemplateRef<any>, eventTheme: string, eventId: number): void {
-    // stopPropagation to not open Event Detail page
-    event.stopPropagation();
+    public set filterList(value: string) {
+        if (this.termoBuscaChanged.observers.length === 0) {
+            this.termoBuscaChanged
+                .pipe(debounceTime(1000))
+                .subscribe((filtrarPor) => {
+                    this.spinner.show();
+                    this._eventService
+                        .getEvents(
+                            this.pagination.currentPage,
+                            this.pagination.itemsPerPage,
+                            filtrarPor
+                        )
+                        .subscribe(
+                            (paginatedResult: PaginationResult<Event[]>) => {
+                                this.events = paginatedResult.result;
+                                this.filteredEvents = paginatedResult.result;
+                                this.pagination = paginatedResult.pagination;
+                            },
+                            (error: any) => {
+                                this.spinner.hide();
+                                this.toastr.error('Erro ao Carregar os Eventos', 'Erro!');
+                            }
+                        )
+                        .add(() => this.spinner.hide());
+                });
+        }
+        this.termoBuscaChanged.next(value);
+    }
 
-    var mo = new ModalOptions();
-    mo.class = 'modal-md';
-    mo.ignoreBackdropClick = true;
+    public showImages(): void {
+        this.isToShowImages = !this.isToShowImages;
+    }
 
-    this.eventTheme = eventTheme;
-    this._eventId = eventId;
+    // MODAL - START
+    public openModal(event: any, template: TemplateRef<any>, eventTheme: string, eventId: number): void {
+        // stopPropagation to not open Event Detail page
+        event.stopPropagation();
 
-    this._modalRef = this.modalService.show(template, mo);
-  }
+        var mo = new ModalOptions();
+        mo.class = 'modal-md';
+        mo.ignoreBackdropClick = true;
 
-  public confirmDelete(): void {
-    this._modalRef?.hide();
-    this.spinner.show();
+        this.eventTheme = eventTheme;
+        this._eventId = eventId;
 
-    this._eventService.deleteEventById(this._eventId).subscribe({
-      next: (resp: string) => { this.toastr.success(resp, 'Success'); },
-      error: (error: any) => {
-        this.spinner.hide();
-        console.log(error);
-        this.toastr.error("Error in deleting Event. Please Contact Support", 'Failed');
-      },
-      complete: () => { this.spinner.hide(); this.getEvents() }
-    });
-  }
+        this._modalRef = this.modalService.show(template, mo);
+    }
 
-  public declineDelete(): void {
-    this._modalRef?.hide();
-  }
-  // MODAL - END
+    public confirmDelete(): void {
+        this._modalRef?.hide();
+        this.spinner.show();
 
-  public showDetail(id: number): void {
-    this.route.navigate([`events/detail/${id}`]);
-  }
+        this._eventService.deleteEventById(this._eventId).subscribe({
+            next: (resp: string) => { this.toastr.success(resp, 'Success'); },
+            error: (error: any) => {
+                this.spinner.hide();
+                console.log(error);
+                this.toastr.error("Error in deleting Event. Please Contact Support", 'Failed');
+            },
+            complete: () => { this.spinner.hide(); this.getEvents() }
+        });
+    }
 
-  public loadImage(imageURL: string) {
-    return this._eventService.loadImage(imageURL);
-  }
+    public declineDelete(): void {
+        this._modalRef?.hide();
+    }
+    // MODAL - END
 
-  private filterEvents(value: string): Event[] {
-    value = value.toLowerCase();
-    return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
-      || event.place.toLowerCase().indexOf(value) !== -1);
-  }
+    public showDetail(id: number): void {
+        this.route.navigate([`events/detail/${id}`]);
+    }
 
-  private getEvents(): void {
-    this._eventService.getEvents().subscribe(
-      {
-        next: (resp: Event[]) => { this.events = resp, this.filteredEvents = resp; },
-        error: (error) => {
-          this.spinner.hide();
-          this.toastr.error('Error in loading events.', 'Failed');
-        },
-        complete: () => { this.spinner.hide(); }
-      }
-    )
-  }
+    public loadImage(imageURL: string) {
+        return this._eventService.loadImage(imageURL);
+    }
+
+    public pageChanged(event: any): void {
+        this.pagination.currentPage = event.page;
+        this.getEvents();
+    }
+
+    private filterEvents(value: string): Event[] {
+        value = value.toLowerCase();
+        return this.events.filter((event) => event.theme.toLowerCase().indexOf(value) !== -1
+            || event.place.toLowerCase().indexOf(value) !== -1);
+    }
+
+    private getEvents(): void {
+        this.spinner.show();
+
+        this._eventService.getEvents(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe(
+            {
+                next: (resp: PaginationResult<Event[]>) => {
+                    this.events = resp.result;
+                    this.filteredEvents = resp.result;
+                    this.pagination = resp.pagination;
+                },
+                error: (error) => {
+                    this.spinner.hide();
+                    this.toastr.error('Error in loading events.', 'Failed');
+                },
+                complete: () => { this.spinner.hide(); }
+            }
+        )
+    }
 }
